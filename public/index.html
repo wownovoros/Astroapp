@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Astro</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0d0d1a;--card:rgba(255,255,255,0.06);--border:rgba(255,255,255,0.12);
+  --text:#f0f0ff;--dim:rgba(240,240,255,0.55);--accent:#a78bfa;--gold:#fbbf24;--r:16px;
+}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;overflow-x:hidden}
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--d) ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:var(--lo)}50%{opacity:1;transform:scale(1.3)}}
+.screen{position:absolute;top:0;left:0;width:100%;min-height:100vh;padding:28px 20px 40px;z-index:1;
+  transition:opacity .3s,transform .3s;display:flex;flex-direction:column}
+.screen.hidden{opacity:0;pointer-events:none;transform:translateY(18px)}
+.logo-wrap{text-align:center;margin-bottom:36px}
+.logo{font-size:56px;margin-bottom:6px}
+.title{font-size:30px;font-weight:800;background:linear-gradient(135deg,#a78bfa,#fbbf24);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:var(--dim);font-size:15px;margin-top:4px}
+label.lbl{display:block;color:var(--dim);font-size:12px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.date-in{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);
+  padding:18px;color:var(--text);font-size:22px;font-weight:700;text-align:center;
+  letter-spacing:4px;outline:none;transition:border-color .2s}
+.date-in:focus{border-color:var(--accent)}
+.hint{text-align:center;color:var(--dim);font-size:13px;margin-top:8px}
+.btn{width:100%;padding:17px;border-radius:var(--r);font-size:16px;font-weight:700;
+  cursor:pointer;border:none;transition:transform .15s,opacity .15s;margin-top:24px}
+.btn-main{background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff}
+.btn-main:active{transform:scale(.97)}
+.hero{text-align:center;padding:20px 0 12px}
+.z-emoji{font-size:88px;display:block;animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.z-name{font-size:34px;font-weight:800;margin-top:8px}
+.z-date{color:var(--gold);font-size:14px;margin-top:4px}
+.grid{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:18px 20px;cursor:pointer;display:flex;align-items:center;gap:16px;transition:all .18s}
+.card:active{transform:scale(.975);background:rgba(255,255,255,0.1)}
+.card-ico{font-size:30px;flex-shrink:0}
+.card-txt h3{font-size:16px;font-weight:600}
+.card-txt p{font-size:13px;color:var(--dim);margin-top:2px}
+.arr{margin-left:auto;color:var(--dim);font-size:20px;flex-shrink:0}
+.badge{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;
+  font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px;flex-shrink:0}
+.back{display:flex;align-items:center;gap:6px;color:var(--accent);cursor:pointer;
+  font-size:15px;font-weight:500;margin-bottom:22px;width:fit-content}
+.page-title{font-size:22px;font-weight:700;margin-bottom:18px}
+.horo-body{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:22px;line-height:1.75;font-size:15px;color:var(--text);flex:1}
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;padding:70px 0}
+.spinner{width:42px;height:42px;border:3px solid rgba(167,139,250,.2);
+  border-top-color:var(--accent);border-radius:50%;animation:spin .75s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-txt{color:var(--dim);font-size:14px}
+.err{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);
+  border-radius:var(--r);padding:18px;color:#fca5a5;font-size:14px;text-align:center}
+.natal-wrap{display:flex;flex-direction:column;gap:10px}
+.natal-row{background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.6}
+.natal-head{font-size:18px;font-weight:700;color:var(--accent);margin-bottom:12px}
+.natal-tip{color:var(--dim);font-size:13px;font-style:italic;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+
+<!-- SCREEN: birthday -->
+<div class="screen" id="s-birth">
+  <div class="logo-wrap">
+    <div class="logo">🔮</div>
+    <div class="title">Astro</div>
+    <div class="sub">Гороскоп и натальная карта</div>
+  </div>
+  <label class="lbl">Дата рождения</label>
+  <input class="date-in" id="inp" type="text" placeholder="09-11-1998" maxlength="10" inputmode="numeric">
+  <div class="hint">Формат: ДД-ММ-ГГГГ</div>
+  <button class="btn btn-main" onclick="saveBirth()">Продолжить ✨</button>
+</div>
+
+<!-- SCREEN: menu -->
+<div class="screen hidden" id="s-menu">
+  <div class="hero">
+    <span class="z-emoji" id="m-emoji">♈</span>
+    <div class="z-name" id="m-name">Овен</div>
+    <div class="z-date" id="m-bd"></div>
+  </div>
+  <div class="grid">
+    <div class="card" onclick="openHoro('day')">
+      <div class="card-ico">📅</div>
+      <div class="card-txt"><h3>Гороскоп на сегодня</h3><p>Что говорят звёзды сегодня</p></div>
+      <div class="arr">›</div>
+    </div>
+    <div class="card" onclick="openHoro('week')">
+      <div class="card-ico">📆</div>
+      <div class="card-txt"><h3>Гороскоп на неделю</h3><p>Прогноз на ближайшие 7 дней</p></div>
+      <div class="arr">›</div>
+    </div>
+    <div class="card" onclick="openNatal()">
+      <div class="card-ico">⭐</div>
+      <div class="card-txt"><h3>Натальная карта</h3><p>Положение планет в момент рождения</p></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+        <span class="badge">PRO</span><div class="arr">›</div>
+      </div>
+    </div>
+    <div class="card" onclick="reset()">
+      <div class="card-ico">✏️</div>
+      <div class="card-txt"><h3>Изменить дату</h3><p>Ввести другую дату рождения</p></div>
+      <div class="arr">›</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: horoscope -->
+<div class="screen hidden" id="s-horo">
+  <div class="back" onclick="go('menu')">‹ Назад</div>
+  <div class="page-title" id="horo-title">Гороскоп</div>
+  <div id="horo-body"></div>
+</div>
+
+<!-- SCREEN: natal -->
+<div class="screen hidden" id="s-natal">
+  <div class="back" onclick="go('menu')">‹ Назад</div>
+  <div class="page-title">Натальная карта</div>
+  <div id="natal-body"></div>
+</div>
+
+<script>
+const tg=window.Telegram?.WebApp;
+if(tg){tg.expand();tg.ready()}
+
+// Stars
+const sc=document.getElementById('stars');
+for(let i=0;i<80;i++){
+  const s=document.createElement('div');s.className='star';
+  const sz=Math.random()*2.5+.5;
+  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;--d:${Math.random()*3+2}s;--lo:${Math.random()*.25+.05}`;
+  sc.appendChild(s)
+}
+
+const SIGNS={
+  oven:{n:'Овен',e:'♈'},telec:{n:'Телец',e:'♉'},bliznecy:{n:'Близнецы',e:'♊'},
+  rak:{n:'Рак',e:'♋'},lev:{n:'Лев',e:'♌'},deva:{n:'Дева',e:'♍'},
+  vesy:{n:'Весы',e:'♎'},skorpion:{n:'Скорпион',e:'♏'},strelec:{n:'Стрелец',e:'♐'},
+  kozerog:{n:'Козерог',e:'♑'},vodoley:{n:'Водолей',e:'♒'},ryby:{n:'Рыбы',e:'♓'}
+};
+
+function getSign(d,m){
+  if((m==3&&d>=21)||(m==4&&d<=19))return'oven';
+  if((m==4&&d>=20)||(m==5&&d<=20))return'telec';
+  if((m==5&&d>=21)||(m==6&&d<=20))return'bliznecy';
+  if((m==6&&d>=21)||(m==7&&d<=22))return'rak';
+  if((m==7&&d>=23)||(m==8&&d<=22))return'lev';
+  if((m==8&&d>=23)||(m==9&&d<=22))return'deva';
+  if((m==9&&d>=23)||(m==10&&d<=22))return'vesy';
+  if((m==10&&d>=23)||(m==11&&d<=21))return'skorpion';
+  if((m==11&&d>=22)||(m==12&&d<=21))return'strelec';
+  if((m==12&&d>=22)||(m==1&&d<=19))return'kozerog';
+  if((m==1&&d>=20)||(m==2&&d<=18))return'vodoley';
+  return'ryby';
+}
+
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));
+  document.getElementById('s-'+id).classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+document.getElementById('inp').addEventListener('input',function(e){
+  let v=e.target.value.replace(/\D/g,'');
+  if(v.length>=2)v=v.slice(0,2)+'-'+v.slice(2);
+  if(v.length>=5)v=v.slice(0,5)+'-'+v.slice(5);
+  e.target.value=v.slice(0,10);
+});
+
+function saveBirth(){
+  const v=document.getElementById('inp').value;
+  if(!/^\d{2}-\d{2}-\d{4}$/.test(v)){alert('Введите дату в формате ДД-ММ-ГГГГ');return}
+  const[d,m,y]=v.split('-').map(Number);
+  const dt=new Date(y,m-1,d);
+  if(isNaN(dt)||dt>new Date()||y<1900){alert('Укажите корректную дату');return}
+  localStorage.setItem('bd',v);
+  loadMenu(v);go('menu');
+}
+
+function loadMenu(bd){
+  const[d,m]=bd.split('-').map(Number);
+  const slug=getSign(d,m);const sg=SIGNS[slug];
+  document.getElementById('m-emoji').textContent=sg.e;
+  document.getElementById('m-name').textContent=sg.n;
+  document.getElementById('m-bd').textContent=bd;
+  localStorage.setItem('sign',slug);
+}
+
+function reset(){localStorage.removeItem('bd');localStorage.removeItem('sign');document.getElementById('inp').value='';go('birth')}
+
+const BASE=window.location.origin;
+
+async function openHoro(type){
+  go('horo');
+  const sign=localStorage.getItem('sign');const sg=SIGNS[sign]||{};
+  const lbl=type==='day'?'сегодня':'на неделю';
+  document.getElementById('horo-title').textContent=(sg.e||'')+' Гороскоп '+lbl;
+  document.getElementById('horo-body').innerHTML='<div class="loading"><div class="spinner"></div><div class="load-txt">Читаем звёзды...</div></div>';
+  try{
+    const r=await fetch(`${BASE}/api/horoscope?sign=${sign}&type=${type}`);
+    const data=await r.json();
+    if(data.error)throw new Error(data.error);
+    document.getElementById('horo-body').innerHTML=`<div class="horo-body">${data.text.replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>')}</div>`;
+  }catch(e){
+    document.getElementById('horo-body').innerHTML='<div class="err">Не удалось загрузить гороскоп. Попробуйте позже.</div>';
+  }
+}
+
+async function openNatal(){
+  go('natal');
+  const bd=localStorage.getItem('bd');
+  document.getElementById('natal-body').innerHTML='<div class="loading"><div class="spinner"></div><div class="load-txt">Вычисляем положение планет...</div></div>';
+  try{
+    const r=await fetch(`${BASE}/api/natal`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({birthdate:bd})});
+    const data=await r.json();
+    if(data.error)throw new Error(data.error);
+    const lines=data.report.split('\n').filter(l=>l.trim());
+    const html=lines.map((l,i)=>{
+      if(i===0)return`<div class="natal-head">${l}</div>`;
+      if(l.startsWith('-'))return`<div class="natal-row">${l.slice(1).trim()}</div>`;
+      return`<div class="natal-tip">${l}</div>`;
+    }).join('');
+    document.getElementById('natal-body').innerHTML=`<div class="natal-wrap">${html}</div>`;
+  }catch(e){
+    document.getElementById('natal-body').innerHTML='<div class="err">Не удалось построить натальную карту. Попробуйте позже.</div>';
+  }
+}
+
+const saved=localStorage.getItem('bd');
+if(saved){loadMenu(saved);go('menu')}else{go('birth')}
+</script>
+</body>
+</html>

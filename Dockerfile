@@ -2,9 +2,5 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . .
-
-CMD ["python", "bot.py"]
+# Build tools needed to compile pyswisseph from source if no wheel is available
+RUN apt-get update && apt-get i

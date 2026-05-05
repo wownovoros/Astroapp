@@ -1,3 +1,18 @@
+# --- Compatibility patch for pyswisseph >= 2.8 ---
+# Modern pyswisseph returns (values_tuple, retflag); flatlib expects values_tuple only.
+import swisseph as _swe  # noqa: E402
+
+_orig_calc_ut = _swe.calc_ut
+
+
+def _compat_calc_ut(jd, planet, *args, **kwargs):
+    result = _orig_calc_ut(jd, planet, *args, **kwargs)
+    return result[0] if isinstance(result[0], (tuple, list)) else result
+
+
+_swe.calc_ut = _compat_calc_ut
+# --- end patch ---
+
 from flatlib import const
 from flatlib.chart import Chart
 from flatlib.datetime import Datetime
@@ -32,7 +47,7 @@ SIGN_MEANING = {
 def build_natal_report(birth_date_ddmmyyyy: str, birth_time: str = "12:00") -> str:
     day, month, year = birth_date_ddmmyyyy.split("-")
     dt = Datetime(f"{year}/{month}/{day}", birth_time, DEFAULT_TZ_OFFSET)
-    pos = GeoPos(DEFAULT_LAT, DEFAULT_LON)
+    pos = GeoPos(float(DEFAULT_LAT), float(DEFAULT_LON))
     chart = Chart(dt, pos)
 
     lines = ["Персональный разбор натальной карты:"]

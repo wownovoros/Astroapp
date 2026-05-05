@@ -39,6 +39,3 @@ class handler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         self.wfile.write(body)
-
-    def log_message(self, *args):
-        pass

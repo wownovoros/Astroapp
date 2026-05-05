@@ -1,7 +1,9 @@
 {
   "version": 2,
-  "functions": {
-    "api/horoscope.py": { "maxDuration": 30 },
-    "api/natal.py": { "maxDuration": 30 }
-  }
+  "builds": [
+    { "src": "api/*.py", "use": "@vercel/python" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1.py" }
+  ]
 }

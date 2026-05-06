@@ -170,7 +170,8 @@ def build_natal_data(birth_date_ddmmyyyy: str,
                      birth_time: str = "12:00",
                      lat: float = None,
                      lon: float = None,
-                     tz_name: str = None) -> dict:
+                     tz_name: str = None,
+                     name: str = "") -> dict:
 
     day, month, year = birth_date_ddmmyyyy.split("-")
     use_lat = lat if lat is not None else float(DEFAULT_LAT)
@@ -274,6 +275,7 @@ def build_natal_data(birth_date_ddmmyyyy: str,
     dom_mod  = max(modalities, key=modalities.get)
 
     return {
+        "name":     name,
         "date":     f"{day}.{month}.{year}",
         "time":     birth_time,
         "location": {"lat": use_lat, "lon": use_lon, "tz_offset": tz_offset},

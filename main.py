@@ -123,11 +123,13 @@ def natal_data():
         lat     = body.get("lat")
         lon     = body.get("lon")
         tz_name = body.get("tz_name")
+        name    = body.get("name", "")
         from services.natal import build_natal_data
         data = build_natal_data(birthdate, birthtime,
                                 lat=float(lat) if lat is not None else None,
                                 lon=float(lon) if lon is not None else None,
-                                tz_name=tz_name)
+                                tz_name=tz_name,
+                                name=name)
         resp = jsonify(data)
     except Exception as e:
         log.error("natal-data error: %s", e)

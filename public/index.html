@@ -20,108 +20,148 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .page.active{display:flex}
 
 /* HOME */
-.logo{text-align:center;margin-bottom:32px;padding-top:20px}
-.logo-ico{font-size:60px;line-height:1}
-.logo-title{font-size:30px;font-weight:800;background:linear-gradient(135deg,#a78bfa,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:10px}
-.logo-sub{color:var(--dim);font-size:13px;margin-top:5px}
-.home-cards{display:flex;flex-direction:column;gap:14px;margin-top:10px}
-.home-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:22px 20px;cursor:pointer;transition:transform .15s,border-color .2s;display:flex;align-items:center;gap:16px}
+.logo{text-align:center;margin-bottom:28px;padding-top:16px}
+.logo-ico{font-size:58px;line-height:1}
+.logo-title{font-size:28px;font-weight:800;background:linear-gradient(135deg,#a78bfa,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:8px}
+.logo-sub{color:var(--dim);font-size:13px;margin-top:4px}
+.home-cards{display:flex;flex-direction:column;gap:14px}
+.home-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:20px;cursor:pointer;transition:transform .15s,border-color .2s;display:flex;align-items:center;gap:16px}
 .home-card:active{transform:scale(.97)}
-.home-card.accent{border-color:rgba(167,139,250,0.4);background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(167,139,250,0.08))}
-.home-card.gold{border-color:rgba(251,191,36,0.4);background:linear-gradient(135deg,rgba(251,191,36,0.12),rgba(251,191,36,0.05))}
-.hc-ico{font-size:40px;flex-shrink:0}
-.hc-title{font-size:18px;font-weight:800}
+.home-card.gold{border-color:rgba(251,191,36,0.4);background:linear-gradient(135deg,rgba(251,191,36,0.1),rgba(251,191,36,0.04))}
+.home-card.violet{border-color:rgba(167,139,250,0.4);background:linear-gradient(135deg,rgba(124,58,237,0.12),rgba(167,139,250,0.06))}
+.hc-ico{font-size:38px;flex-shrink:0}
+.hc-title{font-size:17px;font-weight:800}
 .hc-sub{font-size:12px;color:var(--dim);margin-top:3px}
-.hc-arr{font-size:20px;color:var(--dim);margin-left:auto}
+.hc-arr{font-size:22px;color:var(--dim);margin-left:auto}
 
 /* SIGN PICKER */
-.sign-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
-.sign-btn{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;transition:transform .15s,border-color .2s}
+.sign-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sign-btn{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:14px 6px;text-align:center;cursor:pointer;transition:transform .15s,border-color .2s}
 .sign-btn:active{transform:scale(.95)}
-.sign-btn.selected{border-color:var(--accent);background:rgba(167,139,250,0.15)}
-.sign-ico{font-size:28px}
+.sign-ico{font-size:26px}
 .sign-name{font-size:12px;font-weight:700;margin-top:4px;color:var(--dim)}
 
-/* HOROSCOPE VIEW */
-.horo-header{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;text-align:center;margin-bottom:14px}
-.horo-sign-ico{font-size:48px}
-.horo-sign-name{font-size:20px;font-weight:800;margin-top:6px}
-.horo-sign-dates{font-size:12px;color:var(--dim);margin-top:2px}
-.horo-text{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;line-height:1.8;font-size:14px;color:var(--text);white-space:pre-wrap}
-.horo-loading{text-align:center;padding:40px;color:var(--dim)}
-
-/* INPUT NATAL */
-.lbl{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--dim);margin-bottom:7px}
-.inp{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:15px;color:var(--text);font-size:18px;font-weight:700;text-align:center;letter-spacing:3px;outline:none;transition:border-color .2s}
-.inp:focus{border-color:var(--accent)}
-.field{margin-bottom:16px}
-.btn{width:100%;padding:16px;border-radius:var(--r);font-size:16px;font-weight:700;cursor:pointer;border:none;transition:transform .15s,opacity .15s;margin-top:8px}
-.btn-main{background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff}
-.btn-main:active{transform:scale(.97)}
-.btn-sec{background:var(--card);border:1.5px solid var(--border);color:var(--text);margin-top:12px}
-.hint{text-align:center;color:var(--dim);font-size:12px;margin-top:6px}
+/* HOROSCOPE */
+.horo-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;text-align:center;margin-bottom:14px}
+.horo-ico{font-size:46px}
+.horo-name{font-size:20px;font-weight:800;margin-top:6px}
+.horo-dates{font-size:12px;color:var(--dim);margin-top:2px}
+.horo-text{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;line-height:1.8;font-size:14px;white-space:pre-wrap}
+.horo-loading{text-align:center;padding:40px;color:var(--dim);font-size:14px}
 
 /* TABS */
-.tabs{display:flex;gap:4px;background:var(--card);border-radius:12px;padding:4px;margin-bottom:16px;flex-shrink:0}
-.tab{flex:1;padding:9px 4px;border:none;background:transparent;color:var(--dim);font-size:11px;font-weight:600;border-radius:9px;cursor:pointer;transition:all .2s}
+.tabs{display:flex;gap:3px;background:var(--card);border-radius:12px;padding:4px;margin-bottom:14px;flex-shrink:0}
+.tab{flex:1;padding:8px 2px;border:none;background:transparent;color:var(--dim);font-size:10px;font-weight:600;border-radius:9px;cursor:pointer;transition:all .2s}
 .tab.active{background:var(--accent);color:#fff}
 
+/* INPUTS */
+.field{margin-bottom:14px;position:relative}
+.lbl{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--dim);margin-bottom:6px}
+.inp{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:14px;color:var(--text);font-size:16px;font-weight:700;text-align:center;letter-spacing:2px;outline:none;transition:border-color .2s}
+.inp:focus{border-color:var(--accent)}
+.inp-city{text-align:left;letter-spacing:0;font-weight:500}
+.hint{text-align:center;color:var(--dim);font-size:12px;margin-top:5px}
+.btn{width:100%;padding:15px;border-radius:var(--r);font-size:15px;font-weight:700;cursor:pointer;border:none;transition:transform .15s;margin-top:8px}
+.btn-main{background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff}
+.btn-main:active{transform:scale(.97)}
+.btn-sec{background:var(--card);border:1.5px solid var(--border);color:var(--text)}
+
+/* CITY AUTOCOMPLETE */
+.city-dropdown{position:absolute;top:100%;left:0;right:0;background:#1a1a2e;border:1.5px solid var(--accent);border-radius:var(--r);z-index:100;display:none;overflow:hidden;margin-top:4px}
+.city-item{padding:12px 14px;cursor:pointer;border-bottom:1px solid var(--border);font-size:13px;transition:background .15s}
+.city-item:last-child{border-bottom:none}
+.city-item:hover,.city-item:active{background:rgba(167,139,250,0.15)}
+.city-item-name{font-weight:600}
+.city-item-tz{font-size:11px;color:var(--dim);margin-top:2px}
+.city-selected{background:rgba(167,139,250,0.12);border:1.5px solid rgba(167,139,250,0.4);border-radius:12px;padding:10px 14px;margin-top:-6px;margin-bottom:8px;display:none}
+.city-selected-name{font-size:13px;font-weight:600}
+.city-selected-coords{font-size:11px;color:var(--dim);margin-top:2px}
+
 /* PAGE HEADER */
-.page-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.back-btn{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 12px;font-size:13px;cursor:pointer;color:var(--text)}
-.page-title{font-size:17px;font-weight:800;flex:1}
-.page-sub{font-size:12px;color:var(--dim)}
+.page-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.back-btn{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:7px 12px;font-size:13px;cursor:pointer;color:var(--text);flex-shrink:0}
+.page-title{font-size:17px;font-weight:800}
+.page-sub{font-size:11px;color:var(--dim);margin-top:2px}
 
 /* LOADING */
-.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:50vh;gap:16px}
-.spinner{width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:50vh;gap:14px}
+.spinner{width:46px;height:46px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-text{color:var(--dim);font-size:14px}
+.loading-text{color:var(--dim);font-size:14px;text-align:center}
 
 /* WHEEL */
-.wheel-wrap{display:flex;justify-content:center;margin-bottom:12px}
+.wheel-wrap{display:flex;justify-content:center;margin-bottom:10px}
 .wheel-wrap svg{max-width:340px;width:100%}
-.asc-mc-row{display:flex;gap:8px;margin-bottom:16px}
-.asc-mc-card{flex:1;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center}
-.asc-mc-label{font-size:11px;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
-.asc-mc-sign{font-size:20px;margin:4px 0 2px}
-.asc-mc-name{font-size:14px;font-weight:700;color:var(--accent)}
+.asc-mc-row{display:flex;gap:8px;margin-bottom:12px}
+.asc-mc-card{flex:1;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center}
+.asc-mc-label{font-size:10px;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.asc-mc-sign{font-size:18px;margin:3px 0 2px}
+.asc-mc-name{font-size:13px;font-weight:700;color:var(--accent)}
 .asc-mc-deg{font-size:11px;color:var(--dim)}
 
-/* PLANETS */
-.planet-table{display:flex;flex-direction:column;gap:8px}
-.planet-row{display:flex;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;gap:12px}
+/* ELEMENTS */
+.elem-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.elem-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 12px}
+.elem-label{font-size:11px;color:var(--dim);font-weight:700;text-transform:uppercase;margin-bottom:6px}
+.elem-bar-wrap{display:flex;gap:4px;align-items:center}
+.elem-bar{height:6px;border-radius:3px;flex-shrink:0;transition:width .3s}
+.elem-count{font-size:13px;font-weight:800;margin-left:auto}
+.elem-fire{background:#e74c3c}
+.elem-earth{background:#e67e22}
+.elem-air{background:#3498db}
+.elem-water{background:#1abc9c}
+.mod-row{display:flex;gap:8px;margin-bottom:14px}
+.mod-card{flex:1;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center}
+.mod-val{font-size:20px;font-weight:800;color:var(--accent)}
+.mod-lbl{font-size:10px;color:var(--dim);margin-top:2px}
+
+/* PLANET TABLE */
+.planet-table{display:flex;flex-direction:column;gap:7px}
+.planet-row{display:flex;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 12px;gap:10px}
 .planet-row.retro{border-color:rgba(248,113,113,0.3)}
-.p-emo{font-size:22px;flex-shrink:0;width:30px;text-align:center}
-.p-name{font-size:14px;font-weight:700;flex:1}
-.p-meaning{font-size:11px;color:var(--dim);margin-top:2px;line-height:1.4}
-.p-pos{text-align:right}
-.p-sign{font-size:15px;font-weight:700;color:var(--accent)}
-.p-deg{font-size:12px;color:var(--dim);margin-top:1px}
-.p-retro{font-size:11px;color:var(--red);font-weight:700;margin-top:2px}
+.p-emo{font-size:20px;flex-shrink:0;width:28px;text-align:center}
+.p-info{flex:1;min-width:0}
+.p-name{font-size:13px;font-weight:700}
+.p-meaning{font-size:11px;color:var(--dim);margin-top:1px}
+.p-pos{text-align:right;flex-shrink:0}
+.p-sign{font-size:13px;font-weight:700;color:var(--accent)}
+.p-deg{font-size:11px;color:var(--dim);margin-top:1px}
+.p-house{font-size:11px;color:var(--gold);margin-top:1px}
+.p-retro{font-size:10px;color:var(--red);font-weight:700;margin-top:1px}
+
+/* HOUSES */
+.house-list{display:flex;flex-direction:column;gap:7px}
+.house-row{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:11px 14px;display:flex;align-items:center;gap:12px}
+.house-num{width:28px;height:28px;border-radius:50%;background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--accent);flex-shrink:0}
+.house-info{flex:1}
+.house-sign{font-size:14px;font-weight:700}
+.house-meaning{font-size:11px;color:var(--dim);margin-top:2px}
+.house-ruler{font-size:11px;color:var(--gold);margin-top:1px}
+.house-planets{font-size:12px;margin-top:3px}
 
 /* ASPECTS */
-.section-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--dim);margin:14px 0 8px}
-.asp-list{display:flex;flex-direction:column;gap:6px}
-.asp-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.section-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--dim);margin:12px 0 7px}
+.asp-list{display:flex;flex-direction:column;gap:5px}
+.asp-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:9px 12px;display:flex;align-items:center;gap:9px}
 .asp-row.harm{border-color:rgba(52,211,153,0.3)}
 .asp-row.tens{border-color:rgba(248,113,113,0.3)}
-.asp-planets{font-size:16px;flex-shrink:0;width:42px;text-align:center}
-.asp-name{flex:1;font-size:13px;font-weight:600}
-.asp-orb{font-size:11px;color:var(--dim)}
-.asp-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.asp-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .asp-dot.harm{background:var(--green)}
 .asp-dot.tens{background:var(--red)}
 .asp-dot.neut{background:var(--gold)}
+.asp-planets{font-size:15px;flex-shrink:0;width:36px;text-align:center}
+.asp-name{flex:1;font-size:12px;font-weight:600}
+.asp-orb{font-size:11px;color:var(--dim)}
 
-/* INTERP */
-.interp-block{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px}
-.interp-header{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.interp-emo{font-size:26px;flex-shrink:0}
-.interp-title{font-size:16px;font-weight:800}
-.interp-sign{font-size:13px;color:var(--accent);margin-top:2px}
+/* INTERPRETATION */
+.interp-block{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px}
+.interp-header{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.interp-emo{font-size:24px;flex-shrink:0}
+.interp-title{font-size:15px;font-weight:800}
+.interp-sign{font-size:12px;color:var(--accent);margin-top:2px}
+.interp-house{font-size:11px;color:var(--gold);margin-top:1px}
 .interp-text{font-size:13px;color:var(--dim);line-height:1.7}
-.interp-highlight{color:var(--text);font-weight:600}
+.interp-hl{color:var(--text);font-weight:600}
 </style>
 </head>
 <body>
@@ -137,18 +177,12 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
   <div class="home-cards">
     <div class="home-card gold" id="btn-goto-horo">
       <div class="hc-ico">🔮</div>
-      <div>
-        <div class="hc-title">Гороскоп</div>
-        <div class="hc-sub">На сегодня и на неделю по знаку зодиака</div>
-      </div>
+      <div><div class="hc-title">Гороскоп</div><div class="hc-sub">На сегодня и на неделю по знаку</div></div>
       <div class="hc-arr">›</div>
     </div>
-    <div class="home-card accent" id="btn-goto-natal">
+    <div class="home-card violet" id="btn-goto-natal">
       <div class="hc-ico">⭐</div>
-      <div>
-        <div class="hc-title">Натальная карта</div>
-        <div class="hc-sub">Полный расклад по дате и времени рождения</div>
-      </div>
+      <div><div class="hc-title">Натальная карта</div><div class="hc-sub">Полный профессиональный расклад</div></div>
       <div class="hc-arr">›</div>
     </div>
   </div>
@@ -158,7 +192,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 <div class="page" id="page-signs">
   <div class="page-header">
     <button class="back-btn" onclick="showPage('page-home')">← Назад</button>
-    <div class="page-title">Выберите знак</div>
+    <div><div class="page-title">Выберите знак</div></div>
   </div>
   <div class="sign-grid" id="sign-grid"></div>
 </div>
@@ -167,70 +201,70 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 <div class="page" id="page-horo">
   <div class="page-header">
     <button class="back-btn" onclick="showPage('page-signs')">← Назад</button>
-    <div>
-      <div class="page-title" id="horo-title">Гороскоп</div>
-      <div class="page-sub" id="horo-sub"></div>
-    </div>
+    <div><div class="page-title" id="horo-title">Гороскоп</div><div class="page-sub" id="horo-sub"></div></div>
   </div>
-  <div id="horo-sign-header" class="horo-header">
-    <div class="horo-sign-ico" id="horo-ico"></div>
-    <div class="horo-sign-name" id="horo-name"></div>
-    <div class="horo-sign-dates" id="horo-dates"></div>
+  <div class="horo-card">
+    <div class="horo-ico" id="horo-ico"></div>
+    <div class="horo-name" id="horo-name"></div>
+    <div class="horo-dates" id="horo-dates"></div>
   </div>
   <div class="tabs">
     <button class="tab active" data-htab="day">На сегодня</button>
     <button class="tab" data-htab="week">На неделю</button>
   </div>
-  <div id="horo-day-content">
-    <div class="horo-loading" id="horo-day-loading">Загружаю...</div>
-    <div class="horo-text" id="horo-day-text" style="display:none"></div>
-  </div>
-  <div id="horo-week-content" style="display:none">
-    <div class="horo-loading" id="horo-week-loading">Загружаю...</div>
-    <div class="horo-text" id="horo-week-text" style="display:none"></div>
-  </div>
+  <div id="horo-day-wrap"><div class="horo-loading" id="horo-day-loading">Загружаю...</div><div class="horo-text" id="horo-day-text" style="display:none"></div></div>
+  <div id="horo-week-wrap" style="display:none"><div class="horo-loading" id="horo-week-loading">Загружаю...</div><div class="horo-text" id="horo-week-text" style="display:none"></div></div>
 </div>
 
 <!-- NATAL INPUT -->
 <div class="page" id="page-input">
   <div class="page-header">
     <button class="back-btn" onclick="showPage('page-home')">← Назад</button>
-    <div class="page-title">Натальная карта</div>
+    <div><div class="page-title">Натальная карта</div></div>
   </div>
-  <div style="text-align:center;font-size:40px;margin-bottom:20px">⭐</div>
+  <div style="text-align:center;font-size:38px;margin-bottom:18px">⭐</div>
+
   <div class="field">
     <label class="lbl">Дата рождения</label>
     <input class="inp" id="inp-date" type="text" placeholder="15-06-1990" maxlength="10" inputmode="numeric">
-    <div class="hint">Формат: ДД-ММ-ГГГГ</div>
+    <div class="hint">ДД-ММ-ГГГГ</div>
   </div>
   <div class="field">
     <label class="lbl">Время рождения</label>
-    <input class="inp" id="inp-time" type="text" placeholder="12:00" maxlength="5" inputmode="numeric">
-    <div class="hint">Если неизвестно — оставьте 12:00</div>
+    <input class="inp" id="inp-time" type="text" placeholder="14:30" maxlength="5" inputmode="numeric">
+    <div class="hint">ЧЧ:ММ · если неизвестно — оставьте 12:00</div>
   </div>
+  <div class="field">
+    <label class="lbl">Город рождения</label>
+    <input class="inp inp-city" id="inp-city" type="text" placeholder="Москва, Россия" autocomplete="off">
+    <div class="city-dropdown" id="city-dropdown"></div>
+    <div class="city-selected" id="city-selected">
+      <div class="city-selected-name" id="city-sel-name"></div>
+      <div class="city-selected-coords" id="city-sel-coords"></div>
+    </div>
+    <div class="hint" id="city-hint">Начните вводить название города</div>
+  </div>
+
   <button class="btn btn-main" id="btn-calc">✨ Рассчитать натальную карту</button>
 </div>
 
 <!-- NATAL CHART -->
 <div class="page" id="page-chart">
   <div class="page-header">
-    <button class="back-btn" id="btn-chart-back">← Назад</button>
-    <div>
-      <div class="page-title">Натальная карта</div>
-      <div class="page-sub" id="birth-info"></div>
-    </div>
+    <button class="back-btn" onclick="showPage('page-input')">← Назад</button>
+    <div><div class="page-title">Натальная карта</div><div class="page-sub" id="birth-info"></div></div>
   </div>
-  <div class="loading" id="loading">
-    <div class="spinner"></div>
-    <div class="loading-text">Рассчитываю положения планет...</div>
-  </div>
+  <div class="loading" id="loading"><div class="spinner"></div><div class="loading-text">Рассчитываю положения планет...</div></div>
   <div id="chart-content" style="display:none">
     <div class="tabs">
       <button class="tab active" data-tab="wheel">Карта</button>
       <button class="tab" data-tab="planets">Планеты</button>
+      <button class="tab" data-tab="houses">Дома</button>
       <button class="tab" data-tab="aspects">Аспекты</button>
       <button class="tab" data-tab="interp">Разбор</button>
     </div>
+
+    <!-- TAB: WHEEL -->
     <div id="tab-wheel">
       <div class="wheel-wrap"><svg id="natal-svg" viewBox="0 0 400 400"></svg></div>
       <div class="asc-mc-row">
@@ -247,16 +281,29 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
           <div class="asc-mc-deg" id="mc-deg"></div>
         </div>
       </div>
+      <div class="elem-grid" id="elem-grid"></div>
+      <div class="mod-row" id="mod-row"></div>
     </div>
+
+    <!-- TAB: PLANETS -->
     <div id="tab-planets" style="display:none">
       <div class="planet-table" id="planet-list"></div>
     </div>
+
+    <!-- TAB: HOUSES -->
+    <div id="tab-houses" style="display:none">
+      <div class="house-list" id="house-list"></div>
+    </div>
+
+    <!-- TAB: ASPECTS -->
     <div id="tab-aspects" style="display:none">
       <div class="section-title">✨ Гармоничные аспекты</div>
       <div class="asp-list" id="asp-harm"></div>
       <div class="section-title">⚡ Напряжённые аспекты</div>
       <div class="asp-list" id="asp-tens"></div>
     </div>
+
+    <!-- TAB: INTERP -->
     <div id="tab-interp" style="display:none">
       <div id="interp-list"></div>
     </div>
@@ -265,164 +312,152 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
 <script>
 // ── Stars ──
-const starsEl = document.getElementById("stars");
-for(let i=0;i<60;i++){
-  const s=document.createElement("div"); s.className="star";
-  const sz=Math.random()*2+1;
-  s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${2+Math.random()*4}s;--lo:${0.1+Math.random()*0.4}`;
-  starsEl.appendChild(s);
-}
+(()=>{const el=document.getElementById("stars");for(let i=0;i<55;i++){const s=document.createElement("div");s.className="star";const sz=Math.random()*2+0.5;s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${2+Math.random()*4}s;--lo:${0.1+Math.random()*0.4}`;el.appendChild(s);}})();
 
 // ── Telegram ──
-const tg = window.Telegram?.WebApp;
-if(tg){ tg.ready(); tg.expand(); }
+const tg=window.Telegram?.WebApp;if(tg){tg.ready();tg.expand();}
 
 // ── Pages ──
-function showPage(id){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  window.scrollTo(0,0);
-}
+function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo(0,0);}
 
 // ── Home ──
 document.getElementById("btn-goto-horo").addEventListener("click",()=>showPage("page-signs"));
 document.getElementById("btn-goto-natal").addEventListener("click",()=>showPage("page-input"));
 
-// ── Sign data ──
-const SIGNS = [
-  {slug:"oven",    name:"Овен",      emoji:"♈", dates:"21.03 — 19.04"},
-  {slug:"telec",   name:"Телец",     emoji:"♉", dates:"20.04 — 20.05"},
-  {slug:"bliznecy",name:"Близнецы",  emoji:"♊", dates:"21.05 — 20.06"},
-  {slug:"rak",     name:"Рак",       emoji:"♋", dates:"21.06 — 22.07"},
-  {slug:"lev",     name:"Лев",       emoji:"♌", dates:"23.07 — 22.08"},
-  {slug:"deva",    name:"Дева",      emoji:"♍", dates:"23.08 — 22.09"},
-  {slug:"vesy",    name:"Весы",      emoji:"♎", dates:"23.09 — 22.10"},
-  {slug:"skorpion",name:"Скорпион",  emoji:"♏", dates:"23.10 — 21.11"},
-  {slug:"strelec", name:"Стрелец",   emoji:"♐", dates:"22.11 — 21.12"},
-  {slug:"kozerog", name:"Козерог",   emoji:"♑", dates:"22.12 — 19.01"},
-  {slug:"vodoley", name:"Водолей",   emoji:"♒", dates:"20.01 — 18.02"},
-  {slug:"ryby",    name:"Рыбы",      emoji:"♓", dates:"19.02 — 20.03"},
+// ── Signs data ──
+const SIGNS=[
+  {slug:"oven",    name:"Овен",     emoji:"♈",dates:"21.03—19.04"},
+  {slug:"telec",   name:"Телец",    emoji:"♉",dates:"20.04—20.05"},
+  {slug:"bliznecy",name:"Близнецы", emoji:"♊",dates:"21.05—20.06"},
+  {slug:"rak",     name:"Рак",      emoji:"♋",dates:"21.06—22.07"},
+  {slug:"lev",     name:"Лев",      emoji:"♌",dates:"23.07—22.08"},
+  {slug:"deva",    name:"Дева",     emoji:"♍",dates:"23.08—22.09"},
+  {slug:"vesy",    name:"Весы",     emoji:"♎",dates:"23.09—22.10"},
+  {slug:"skorpion",name:"Скорпион", emoji:"♏",dates:"23.10—21.11"},
+  {slug:"strelec", name:"Стрелец",  emoji:"♐",dates:"22.11—21.12"},
+  {slug:"kozerog", name:"Козерог",  emoji:"♑",dates:"22.12—19.01"},
+  {slug:"vodoley", name:"Водолей",  emoji:"♒",dates:"20.01—18.02"},
+  {slug:"ryby",    name:"Рыбы",     emoji:"♓",dates:"19.02—20.03"},
 ];
-
-// ── Sign grid ──
-const grid = document.getElementById("sign-grid");
-SIGNS.forEach(s=>{
-  const btn=document.createElement("div"); btn.className="sign-btn";
-  btn.innerHTML=`<div class="sign-ico">${s.emoji}</div><div class="sign-name">${s.name}</div>`;
-  btn.addEventListener("click",()=>openHoroscope(s));
-  grid.appendChild(btn);
-});
+const grid=document.getElementById("sign-grid");
+SIGNS.forEach(s=>{const b=document.createElement("div");b.className="sign-btn";b.innerHTML=`<div class="sign-ico">${s.emoji}</div><div class="sign-name">${s.name}</div>`;b.addEventListener("click",()=>openHoroscope(s));grid.appendChild(b);});
 
 // ── Horoscope ──
-let horoCache = {};
+const horoCache={};
 async function openHoroscope(sign){
-  document.getElementById("horo-ico").textContent = sign.emoji;
-  document.getElementById("horo-name").textContent = sign.name;
-  document.getElementById("horo-dates").textContent = sign.dates;
-  document.getElementById("horo-title").textContent = sign.name;
-  document.getElementById("horo-sub").textContent = sign.dates;
-  // Reset tabs
+  document.getElementById("horo-ico").textContent=sign.emoji;
+  document.getElementById("horo-name").textContent=sign.name;
+  document.getElementById("horo-dates").textContent=sign.dates;
+  document.getElementById("horo-title").textContent=sign.name;
+  document.getElementById("horo-sub").textContent=sign.dates;
   document.querySelectorAll("[data-htab]").forEach(t=>t.classList.remove("active"));
   document.querySelector("[data-htab=day]").classList.add("active");
-  document.getElementById("horo-day-content").style.display="block";
-  document.getElementById("horo-week-content").style.display="none";
+  document.getElementById("horo-day-wrap").style.display="block";
+  document.getElementById("horo-week-wrap").style.display="none";
   showPage("page-horo");
-  await loadHoro(sign.slug, "day");
+  await loadHoro(sign.slug,"day");
 }
-
-async function loadHoro(slug, type){
-  const textEl = document.getElementById(`horo-${type}-text`);
-  const loadEl = document.getElementById(`horo-${type}-loading`);
-  const key = slug+"_"+type;
-  if(horoCache[key]){
-    textEl.textContent = horoCache[key];
-    textEl.style.display="block"; loadEl.style.display="none"; return;
-  }
-  loadEl.style.display="block"; textEl.style.display="none";
-  try{
-    const htype = type==="week"?"week":"day";
-    const r = await fetch(`/api/horoscope?sign=${slug}&type=${htype}`);
-    const data = await r.json();
-    const txt = data.text || data.error || "Не удалось загрузить";
-    horoCache[key]=txt;
-    textEl.textContent=txt;
-    textEl.style.display="block"; loadEl.style.display="none";
-  } catch(e){
-    loadEl.textContent="Ошибка загрузки"; 
-  }
+async function loadHoro(slug,type){
+  const txtEl=document.getElementById(`horo-${type}-text`),loadEl=document.getElementById(`horo-${type}-loading`);
+  const key=slug+"_"+type;
+  if(horoCache[key]){txtEl.textContent=horoCache[key];txtEl.style.display="block";loadEl.style.display="none";return;}
+  loadEl.style.display="block";txtEl.style.display="none";
+  try{const r=await fetch(`/api/horoscope?sign=${slug}&type=${type==="week"?"week":"day"}`);const data=await r.json();const txt=data.text||"Недоступно";horoCache[key]=txt;txtEl.textContent=txt;txtEl.style.display="block";loadEl.style.display="none";}
+  catch(e){loadEl.textContent="Ошибка загрузки";}
 }
-
 document.querySelectorAll("[data-htab]").forEach(btn=>{
-  btn.addEventListener("click",async ()=>{
-    document.querySelectorAll("[data-htab]").forEach(t=>t.classList.remove("active"));
-    btn.classList.add("active");
-    const t = btn.dataset.htab;
-    document.getElementById("horo-day-content").style.display = t==="day"?"block":"none";
-    document.getElementById("horo-week-content").style.display = t==="week"?"block":"none";
-    const slug = document.getElementById("horo-name").textContent;
-    const signObj = SIGNS.find(s=>s.name===slug);
-    if(signObj) await loadHoro(signObj.slug, t);
+  btn.addEventListener("click",async()=>{
+    document.querySelectorAll("[data-htab]").forEach(t=>t.classList.remove("active"));btn.classList.add("active");
+    const t=btn.dataset.htab;
+    document.getElementById("horo-day-wrap").style.display=t==="day"?"block":"none";
+    document.getElementById("horo-week-wrap").style.display=t==="week"?"block":"none";
+    const name=document.getElementById("horo-name").textContent;
+    const s=SIGNS.find(x=>x.name===name);if(s)await loadHoro(s.slug,t);
   });
 });
 
-// ── Natal input ──
-const inpDate = document.getElementById("inp-date");
-const inpTime = document.getElementById("inp-time");
-inpDate.addEventListener("input",e=>{
-  let v=e.target.value.replace(/\D/g,"");
-  if(v.length>2) v=v.slice(0,2)+"-"+v.slice(2);
-  if(v.length>5) v=v.slice(0,5)+"-"+v.slice(5);
-  e.target.value=v.slice(0,10);
-});
-inpTime.addEventListener("input",e=>{
-  let v=e.target.value.replace(/\D/g,"");
-  if(v.length>2) v=v.slice(0,2)+":"+v.slice(2);
-  e.target.value=v.slice(0,5);
+// ── City search ──
+let selectedLocation=null;
+let cityTimer=null;
+const cityInp=document.getElementById("inp-city");
+const cityDrop=document.getElementById("city-dropdown");
+const citySel=document.getElementById("city-selected");
+
+cityInp.addEventListener("input",()=>{
+  clearTimeout(cityTimer);
+  const q=cityInp.value.trim();
+  if(q.length<2){cityDrop.style.display="none";return;}
+  cityTimer=setTimeout(async()=>{
+    try{
+      const r=await fetch(`/api/geocode?q=${encodeURIComponent(q)}`);
+      const results=await r.json();
+      if(!results.length){cityDrop.style.display="none";return;}
+      cityDrop.innerHTML="";
+      results.forEach(item=>{
+        const div=document.createElement("div");div.className="city-item";
+        div.innerHTML=`<div class="city-item-name">${item.display}</div><div class="city-item-tz">${item.tz_name} · ${item.lat.toFixed(2)}°, ${item.lon.toFixed(2)}°</div>`;
+        div.addEventListener("click",()=>selectCity(item));
+        cityDrop.appendChild(div);
+      });
+      cityDrop.style.display="block";
+    }catch(e){}
+  },400);
 });
 
-document.getElementById("btn-chart-back").addEventListener("click",()=>showPage("page-input"));
+function selectCity(item){
+  selectedLocation=item;
+  cityInp.value=item.display;
+  cityDrop.style.display="none";
+  document.getElementById("city-sel-name").textContent=item.display;
+  document.getElementById("city-sel-coords").textContent=`${item.tz_name} · ${item.lat.toFixed(4)}°N, ${item.lon.toFixed(4)}°E`;
+  citySel.style.display="block";
+  document.getElementById("city-hint").style.display="none";
+}
+
+document.addEventListener("click",e=>{if(!e.target.closest(".field"))cityDrop.style.display="none";});
+
+// ── Input formatting ──
+const inpDate=document.getElementById("inp-date"),inpTime=document.getElementById("inp-time");
+inpDate.addEventListener("input",e=>{let v=e.target.value.replace(/\D/g,"");if(v.length>2)v=v.slice(0,2)+"-"+v.slice(2);if(v.length>5)v=v.slice(0,5)+"-"+v.slice(5);e.target.value=v.slice(0,10);});
+inpTime.addEventListener("input",e=>{let v=e.target.value.replace(/\D/g,"");if(v.length>2)v=v.slice(0,2)+":"+v.slice(2);e.target.value=v.slice(0,5);});
 
 // ── Natal tabs ──
-const NTABS=["wheel","planets","aspects","interp"];
+const NTABS=["wheel","planets","houses","aspects","interp"];
 document.querySelectorAll("[data-tab]").forEach(btn=>{
   btn.addEventListener("click",()=>{
-    document.querySelectorAll("[data-tab]").forEach(t=>t.classList.remove("active"));
-    btn.classList.add("active");
+    document.querySelectorAll("[data-tab]").forEach(t=>t.classList.remove("active"));btn.classList.add("active");
     NTABS.forEach(t=>document.getElementById("tab-"+t).style.display="none");
     document.getElementById("tab-"+btn.dataset.tab).style.display="block";
   });
 });
 
-// ── Calculate natal ──
+// ── Calculate ──
 let natalData=null;
 document.getElementById("btn-calc").addEventListener("click",async()=>{
-  const date=inpDate.value.trim(), time=inpTime.value.trim()||"12:00";
+  const date=inpDate.value.trim(),time=inpTime.value.trim()||"12:00";
   if(!/^\d{2}-\d{2}-\d{4}$/.test(date)){alert("Введите дату в формате ДД-ММ-ГГГГ");return;}
   showPage("page-chart");
   document.getElementById("loading").style.display="flex";
   document.getElementById("chart-content").style.display="none";
-  document.getElementById("birth-info").textContent=date+" · "+time;
+  const loc=selectedLocation;
+  const locStr=loc?` · ${loc.display}`:" · Москва (по умолчанию)";
+  document.getElementById("birth-info").textContent=date+" · "+time+locStr;
   try{
-    const r=await fetch("/api/natal-data",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({birthdate:date,birthtime:time})});
+    const body={birthdate:date,birthtime:time};
+    if(loc){body.lat=loc.lat;body.lon=loc.lon;body.tz_name=loc.tz_name;}
+    const r=await fetch("/api/natal-data",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
     natalData=await r.json();
-    if(natalData.error) throw new Error(natalData.error);
+    if(natalData.error)throw new Error(natalData.error);
     renderAll(natalData);
     document.getElementById("loading").style.display="none";
     document.getElementById("chart-content").style.display="block";
-  } catch(e){
-    document.getElementById("loading").innerHTML=
-      `<div style="color:var(--red);text-align:center;padding:20px">
-        <div style="font-size:36px;margin-bottom:12px">⚠️</div>
-        <div>Ошибка расчёта</div>
-        <div style="font-size:12px;margin-top:8px;color:var(--dim)">${e.message}</div>
-        <button class="btn btn-sec" onclick="showPage('page-input')" style="margin-top:20px">← Назад</button>
-      </div>`;
+  }catch(e){
+    document.getElementById("loading").innerHTML=`<div style="color:var(--red);text-align:center;padding:20px"><div style="font-size:36px;margin-bottom:12px">⚠️</div><div>Ошибка расчёта</div><div style="font-size:12px;margin-top:8px;color:var(--dim)">${e.message}</div><button class="btn btn-sec" onclick="showPage('page-input')" style="margin-top:20px">← Назад</button></div>`;
   }
 });
 
 function renderAll(d){
-  renderWheel(d); renderPlanets(d); renderAspects(d); renderInterp(d);
+  renderWheel(d);renderPlanets(d);renderHouses(d);renderAspects(d);renderInterp(d);renderElements(d);
   document.getElementById("asc-emoji").textContent=d.asc.sign_emoji;
   document.getElementById("asc-sign").textContent=d.asc.sign_ru;
   document.getElementById("asc-deg").textContent=`${d.asc.deg}°${String(d.asc.min).padStart(2,"0")}'`;
@@ -432,62 +467,137 @@ function renderAll(d){
 }
 
 // ── SVG Wheel ──
-const SIGN_COLORS=["#e74c3c","#e67e22","#f1c40f","#2ecc71","#f1c40f","#95a5a6",
-                   "#3498db","#8e44ad","#e67e22","#7f8c8d","#2980b9","#1abc9c"];
+const SIGN_COLORS=["#e74c3c","#e67e22","#f1c40f","#2ecc71","#f1c40f","#95a5a6","#3498db","#8e44ad","#e67e22","#7f8c8d","#2980b9","#1abc9c"];
 const SIGN_SYMS=["♈","♉","♊","♋","♌","♍","♎","♏","♐","♑","♒","♓"];
-const ASP_COLORS={0:"#a78bfa",60:"#34d399",90:"#f87171",120:"#34d399",150:"#f87171",180:"#f87171"};
+const ASP_COL={0:"#a78bfa",60:"#34d399",90:"#f87171",120:"#34d399",150:"#f87171",180:"#f87171"};
 function lonToAngle(l){return(l-90+360)%360;}
 function polar(cx,cy,r,a){const rad=a*Math.PI/180;return{x:cx+r*Math.cos(rad),y:cy+r*Math.sin(rad)};}
 
 function renderWheel(d){
-  const svg=document.getElementById("natal-svg"); svg.innerHTML="";
-  const cx=200,cy=200,R_OUT=185,R_SI=165,R_SIN=140,R_PL=115,R_IN=88;
+  const svg=document.getElementById("natal-svg");svg.innerHTML="";
+  const cx=200,cy=200;
+  const RO=183,RS=162,RSI=138,RP=112,RI=85;
   const ns="http://www.w3.org/2000/svg";
-  const mk=(tag,attrs,txt)=>{const el=document.createElementNS(ns,tag);for(const[k,v] of Object.entries(attrs))el.setAttribute(k,v);if(txt!=null)el.textContent=txt;return el;};
-  svg.appendChild(mk("circle",{cx,cy,r:R_OUT,fill:"#0d0d1a",stroke:"rgba(255,255,255,0.15)","stroke-width":"1.5"}));
-  svg.appendChild(mk("circle",{cx,cy,r:R_SIN,fill:"none",stroke:"rgba(255,255,255,0.1)","stroke-width":"1"}));
-  svg.appendChild(mk("circle",{cx,cy,r:R_IN,fill:"#111128",stroke:"rgba(255,255,255,0.1)","stroke-width":"1"}));
+  const mk=(tag,at,txt)=>{const el=document.createElementNS(ns,tag);for(const[k,v] of Object.entries(at))el.setAttribute(k,v);if(txt!=null)el.textContent=txt;return el;};
+
+  // Background
+  svg.appendChild(mk("circle",{cx,cy,r:RO,fill:"#0d0d1a",stroke:"rgba(255,255,255,0.15)","stroke-width":"1.5"}));
+  svg.appendChild(mk("circle",{cx,cy,r:RSI,fill:"none",stroke:"rgba(255,255,255,0.1)","stroke-width":"0.8"}));
+  svg.appendChild(mk("circle",{cx,cy,r:RI,fill:"#0f0f20",stroke:"rgba(255,255,255,0.1)","stroke-width":"0.8"}));
+
+  // Zodiac ring (30° sectors)
   for(let i=0;i<12;i++){
     const sa=lonToAngle(i*30),ea=lonToAngle((i+1)*30);
-    const p1o=polar(cx,cy,R_OUT,sa),p2o=polar(cx,cy,R_OUT,ea),p2i=polar(cx,cy,R_SIN,ea),p1i=polar(cx,cy,R_SIN,sa);
-    svg.appendChild(mk("path",{d:`M${p1o.x},${p1o.y} A${R_OUT},${R_OUT} 0 0,1 ${p2o.x},${p2o.y} L${p2i.x},${p2i.y} A${R_SIN},${R_SIN} 0 0,0 ${p1i.x},${p1i.y} Z`,fill:`${SIGN_COLORS[i]}22`,stroke:"rgba(255,255,255,0.15)","stroke-width":"0.5"}));
-    const mid=polar(cx,cy,(R_OUT+R_SIN)/2,lonToAngle(i*30+15));
-    svg.appendChild(mk("text",{x:mid.x,y:mid.y,"font-size":"13","text-anchor":"middle","dominant-baseline":"middle",fill:SIGN_COLORS[i]+"cc"},SIGN_SYMS[i]));
-    svg.appendChild(mk("line",{x1:p1o.x,y1:p1o.y,x2:p1i.x,y2:p1i.y,stroke:"rgba(255,255,255,0.15)","stroke-width":"0.5"}));
+    const po=polar(cx,cy,RO,sa),p2o=polar(cx,cy,RO,ea),p2i=polar(cx,cy,RS,ea),p1i=polar(cx,cy,RS,sa);
+    svg.appendChild(mk("path",{d:`M${po.x},${po.y} A${RO},${RO} 0 0,1 ${p2o.x},${p2o.y} L${p2i.x},${p2i.y} A${RS},${RS} 0 0,0 ${p1i.x},${p1i.y} Z`,fill:`${SIGN_COLORS[i]}22`,stroke:"rgba(255,255,255,0.12)","stroke-width":"0.5"}));
+    const mid=polar(cx,cy,(RO+RS)/2,lonToAngle(i*30+15));
+    svg.appendChild(mk("text",{x:mid.x,y:mid.y,"font-size":"12","text-anchor":"middle","dominant-baseline":"middle",fill:SIGN_COLORS[i]+"cc"},SIGN_SYMS[i]));
+    const p1=polar(cx,cy,RO,sa),p2=polar(cx,cy,RSI,sa);
+    svg.appendChild(mk("line",{x1:p1.x,y1:p1.y,x2:p2.x,y2:p2.y,stroke:"rgba(255,255,255,0.12)","stroke-width":"0.5"}));
   }
+
+  // House cusp lines
+  if(d.houses){
+    const hLons=d.houses.map(h=>h.lon);
+    for(let i=0;i<12;i++){
+      const a=lonToAngle(hLons[i]);
+      const isAsc=i===0,isMc=i===9;
+      const p1=polar(cx,cy,RI,a),p2=polar(cx,cy,RSI,a);
+      const col=isAsc?"#fbbf24":isMc?"#34d399":"rgba(255,255,255,0.25)";
+      const wid=isAsc||isMc?"1.5":"0.7";
+      svg.appendChild(mk("line",{x1:p1.x,y1:p1.y,x2:p2.x,y2:p2.y,stroke:col,"stroke-width":wid}));
+      // House number in inner circle
+      let mid2=hLons[i];
+      const next=hLons[(i+1)%12];
+      let diff=next-mid2;if(diff<0)diff+=360;
+      let midL=(mid2+diff/2)%360;
+      const np=polar(cx,cy,67,lonToAngle(midL));
+      svg.appendChild(mk("text",{x:np.x,y:np.y,"font-size":"8","text-anchor":"middle","dominant-baseline":"middle",fill:"rgba(255,255,255,0.45)","font-weight":"600"},String(i+1)));
+    }
+  }
+
+  // Aspect lines
   for(const asp of d.aspects){
     if(![0,60,90,120,180].includes(asp.angle))continue;
     const p1=d.planets.find(p=>p.name===asp.p1),p2=d.planets.find(p=>p.name===asp.p2);
     if(!p1||!p2)continue;
-    const pt1=polar(cx,cy,R_IN-4,lonToAngle(p1.lon)),pt2=polar(cx,cy,R_IN-4,lonToAngle(p2.lon));
-    const op=asp.nature==="гармоничный"?0.4:0.25;
-    svg.appendChild(mk("line",{x1:pt1.x,y1:pt1.y,x2:pt2.x,y2:pt2.y,stroke:ASP_COLORS[asp.angle]||"#888","stroke-width":"0.8","stroke-opacity":op}));
+    const pt1=polar(cx,cy,RI-4,lonToAngle(p1.lon)),pt2=polar(cx,cy,RI-4,lonToAngle(p2.lon));
+    svg.appendChild(mk("line",{x1:pt1.x,y1:pt1.y,x2:pt2.x,y2:pt2.y,stroke:ASP_COL[asp.angle]||"#888","stroke-width":"0.7","stroke-opacity":asp.nature==="гармоничный"?0.4:0.22}));
   }
+
+  // Planets
   for(const p of d.planets){
-    const a=lonToAngle(p.lon),pt=polar(cx,cy,R_PL,a);
-    const t1=polar(cx,cy,R_SIN,a),t2=polar(cx,cy,R_SIN-8,a);
-    svg.appendChild(mk("line",{x1:t1.x,y1:t1.y,x2:t2.x,y2:t2.y,stroke:"rgba(255,255,255,0.3)","stroke-width":"0.8"}));
-    svg.appendChild(mk("circle",{cx:pt.x,cy:pt.y,r:"10",fill:"#1a1a2e",stroke:"rgba(167,139,250,0.6)","stroke-width":"1.2"}));
-    svg.appendChild(mk("text",{x:pt.x,y:pt.y,"font-size":"10","text-anchor":"middle","dominant-baseline":"middle",fill:"#e0e0ff"},p.emoji));
+    const a=lonToAngle(p.lon),pt=polar(cx,cy,RP,a);
+    const t1=polar(cx,cy,RSI,a),t2=polar(cx,cy,RSI-7,a);
+    svg.appendChild(mk("line",{x1:t1.x,y1:t1.y,x2:t2.x,y2:t2.y,stroke:"rgba(255,255,255,0.3)","stroke-width":"0.7"}));
+    svg.appendChild(mk("circle",{cx:pt.x,cy:pt.y,r:"9.5",fill:"#13132a",stroke:"rgba(167,139,250,0.55)","stroke-width":"1.1"}));
+    svg.appendChild(mk("text",{x:pt.x,y:pt.y,"font-size":"9.5","text-anchor":"middle","dominant-baseline":"middle",fill:"#dde"},p.emoji));
   }
-  const aa=lonToAngle(d.asc.lon),ap1=polar(cx,cy,R_OUT,aa),ap2=polar(cx,cy,R_IN,aa);
-  svg.appendChild(mk("line",{x1:ap1.x,y1:ap1.y,x2:ap2.x,y2:ap2.y,stroke:"#fbbf24","stroke-width":"1.5","stroke-dasharray":"4,2"}));
-  svg.appendChild(mk("text",{x:polar(cx,cy,R_IN-14,aa).x,y:polar(cx,cy,R_IN-14,aa).y,"font-size":"8","text-anchor":"middle",fill:"#fbbf24","font-weight":"bold"},"ASC"));
-  const ma=lonToAngle(d.mc.lon),mp1=polar(cx,cy,R_OUT,ma),mp2=polar(cx,cy,R_IN,ma);
-  svg.appendChild(mk("line",{x1:mp1.x,y1:mp1.y,x2:mp2.x,y2:mp2.y,stroke:"#34d399","stroke-width":"1.5","stroke-dasharray":"4,2"}));
-  svg.appendChild(mk("text",{x:polar(cx,cy,R_IN-14,ma).x,y:polar(cx,cy,R_IN-14,ma).y,"font-size":"8","text-anchor":"middle",fill:"#34d399","font-weight":"bold"},"MC"));
+}
+
+// ── Elements & Modalities ──
+function renderElements(d){
+  const total=Object.values(d.elements).reduce((a,b)=>a+b,0)||1;
+  const emap=[
+    {key:"fire",  label:"🔥 Огонь",   cls:"elem-fire"},
+    {key:"earth", label:"🌍 Земля",   cls:"elem-earth"},
+    {key:"air",   label:"💨 Воздух",  cls:"elem-air"},
+    {key:"water", label:"💧 Вода",    cls:"elem-water"},
+  ];
+  const eg=document.getElementById("elem-grid");eg.innerHTML="";
+  emap.forEach(e=>{
+    const n=d.elements[e.key]||0;
+    const pct=Math.round(n/total*100);
+    const card=document.createElement("div");card.className="elem-card";
+    card.innerHTML=`<div class="elem-label">${e.label}</div><div class="elem-bar-wrap"><div class="elem-bar ${e.cls}" style="width:${pct}%;min-width:4px"></div><div class="elem-count">${n}</div></div>`;
+    eg.appendChild(card);
+  });
+  const mr=document.getElementById("mod-row");mr.innerHTML="";
+  const MODS=[{k:"cardinal",l:"Кард."},{k:"fixed",l:"Фикс."},{k:"mutable",l:"Мутаб."}];
+  MODS.forEach(m=>{
+    const n=d.modalities[m.k]||0;
+    const card=document.createElement("div");card.className="mod-card";
+    const isDom=m.k===d.dominant.modality;
+    card.innerHTML=`<div class="mod-val" style="color:${isDom?"var(--gold)":"var(--accent)"}">${n}</div><div class="mod-lbl">${m.l}</div>`;
+    mr.appendChild(card);
+  });
 }
 
 // ── Planets tab ──
 function renderPlanets(d){
-  const list=document.getElementById("planet-list"); list.innerHTML="";
+  const list=document.getElementById("planet-list");list.innerHTML="";
   for(const p of d.planets){
-    const div=document.createElement("div"); div.className="planet-row"+(p.retro?" retro":"");
+    const div=document.createElement("div");div.className="planet-row"+(p.retro?" retro":"");
     div.innerHTML=`<div class="p-emo">${p.emoji}</div>
-      <div class="p-name">${p.name}<div class="p-meaning">${p.meaning}</div></div>
-      <div class="p-pos"><div class="p-sign">${p.sign_emoji} ${p.sign_ru}</div>
+      <div class="p-info"><div class="p-name">${p.name}</div><div class="p-meaning">${p.meaning}</div></div>
+      <div class="p-pos">
+        <div class="p-sign">${p.sign_emoji} ${p.sign_ru}</div>
         <div class="p-deg">${p.deg}°${String(p.min).padStart(2,"0")}'</div>
-        ${p.retro?"<div class=\"p-retro\">℞ Ретроградный</div>":""}</div>`;
+        <div class="p-house">Дом ${p.house}</div>
+        ${p.retro?'<div class="p-retro">℞ ретро</div>':""}
+      </div>`;
+    list.appendChild(div);
+  }
+}
+
+// ── Houses tab ──
+function renderHouses(d){
+  const list=document.getElementById("house-list");list.innerHTML="";
+  // Build map: house → planets
+  const hp={};
+  for(let i=1;i<=12;i++)hp[i]=[];
+  for(const p of d.planets)if(p.house)hp[p.house].push(p.emoji+p.name);
+
+  for(const h of d.houses){
+    const div=document.createElement("div");div.className="house-row";
+    const planetsIn=hp[h.num].join(", ");
+    div.innerHTML=`<div class="house-num">${h.num}</div>
+      <div class="house-info">
+        <div class="house-sign">${h.sign_emoji} ${h.sign_ru} ${h.deg}°${String(h.min).padStart(2,"0")}'</div>
+        <div class="house-meaning">${h.meaning}</div>
+        <div class="house-ruler">Управитель: ${h.ruler}</div>
+        ${planetsIn?`<div class="house-planets">Планеты: ${planetsIn}</div>`:""}
+      </div>`;
     list.appendChild(div);
   }
 }
@@ -498,164 +608,129 @@ function renderAspects(d){
   const tens=d.aspects.filter(a=>a.nature==="напряжённый");
   const neut=d.aspects.filter(a=>a.nature==="нейтральный");
   function fill(id,items){
-    const el=document.getElementById(id); el.innerHTML="";
-    if(!items.length){el.innerHTML=`<div style="color:var(--dim);font-size:13px;padding:6px">Нет аспектов</div>`;return;}
+    const el=document.getElementById(id);el.innerHTML="";
+    if(!items.length){el.innerHTML='<div style="color:var(--dim);font-size:12px;padding:6px">Нет аспектов</div>';return;}
     for(const a of items){
       const cls=a.nature==="гармоничный"?"harm":a.nature==="напряжённый"?"tens":"neut";
-      const div=document.createElement("div"); div.className=`asp-row ${cls}`;
-      div.innerHTML=`<div class="asp-dot ${cls}"></div>
-        <div class="asp-planets">${a.p1e}${a.p2e}</div>
-        <div class="asp-name">${a.p1} — ${a.p2}<div class="asp-orb">${a.name} · орб ${a.orb}°</div></div>`;
+      const div=document.createElement("div");div.className=`asp-row ${cls}`;
+      div.innerHTML=`<div class="asp-dot ${cls}"></div><div class="asp-planets">${a.p1e}${a.p2e}</div><div class="asp-name">${a.p1} — ${a.p2}<div class="asp-orb">${a.name} · орб ${a.orb}°</div></div>`;
       el.appendChild(div);
     }
   }
-  fill("asp-harm",[...harm,...neut]);
-  fill("asp-tens",tens);
+  fill("asp-harm",[...harm,...neut]);fill("asp-tens",tens);
 }
 
-// ── Detailed interpretations ──
-const PLANET_ROLE = {
-  "Солнце":"Солнце — ваше ядро, центральная воля и жизненная сила. Это знак, которым вы себя идентифицируете, ваш путь самовыражения и основной архетип личности.",
-  "Луна":"Луна — ваш эмоциональный мир, инстинкты и подсознательные реакции. Она показывает, что вам нужно для внутреннего комфорта и как вы реагируете эмоционально.",
-  "Меркурий":"Меркурий — ваш стиль мышления, речи и общения. Он отвечает за то, как вы воспринимаете информацию, выражаете мысли и принимаете решения.",
-  "Венера":"Венера — ваш подход к любви, красоте и тому, что вы цените. Она показывает, как вы привлекаете и что притягиваете в отношениях.",
-  "Марс":"Марс — ваша воля, энергия и способ действия. Он показывает, как вы добиваетесь целей, выражаете желания и реагируете на вызовы.",
-  "Юпитер":"Юпитер — область вашего роста, удачи и мудрости. Он показывает, где вам помогает щедрость вселенной и где вы расширяетесь.",
-  "Сатурн":"Сатурн — ваши уроки, ограничения и зоны дисциплины. Он указывает, где нужно работать с терпением и ответственностью.",
-  "Уран":"Уран — ваша зона перемен, свободы и оригинальности. Он показывает, где вы разрушаете шаблоны и привносите новизну.",
-  "Нептун":"Нептун — ваши мечты, духовность и зона растворения границ. Он указывает, где живут идеалы и где реальность смешивается с иллюзией.",
-  "Плутон":"Плутон — зона трансформации и возрождения. Он показывает, где происходит самое глубокое обновление и где скрыта подлинная власть.",
-  "Хирон":"Хирон — ваша глубокая рана, которая со временем становится источником исцеления и мудрости. Где вы болели — там вы можете исцелять других.",
-  "Сев. Узел":"Северный Узел — направление вашего кармического развития и духовного роста в этой жизни. Он указывает путь, а не место, где вы уже чувствуете себя комфортно.",
+// ── Interpretation tab ──
+const PLANET_ROLE={
+  "Солнце":"Солнце — ваша центральная воля, путь самовыражения и жизненная сила. Это знак, которым вы себя идентифицируете.",
+  "Луна":"Луна — ваш эмоциональный мир, инстинкты и то, что вам нужно для внутреннего комфорта и безопасности.",
+  "Меркурий":"Меркурий — ваш стиль мышления и общения. Как вы воспринимаете информацию и выражаете мысли.",
+  "Венера":"Венера — ваш подход к любви и красоте. Что вы цените и как притягиваете отношения.",
+  "Марс":"Марс — ваша воля и способ действия. Как вы добиваетесь целей и реагируете на вызовы.",
+  "Юпитер":"Юпитер — ваша зона роста, мудрости и удачи. Где вселенная помогает вам расширяться.",
+  "Сатурн":"Сатурн — ваши жизненные уроки и зона дисциплины. Где нужна серьёзная работа и ответственность.",
+  "Уран":"Уран — ваша зона перемен и оригинальности. Где вы разрушаете шаблоны и вносите новизну.",
+  "Нептун":"Нептун — ваши мечты и духовность. Где живут идеалы и где реальность смешивается с иллюзией.",
+  "Плутон":"Плутон — зона глубокой трансформации. Где происходит самое мощное обновление и скрыта подлинная сила.",
+  "Хирон":"Хирон — ваша глубокая рана, которая со временем становится источником мудрости и исцеления других.",
+  "Сев. Узел":"Северный Узел — направление вашего кармического роста в этой жизни. Путь, а не зона комфорта.",
 };
-
-const SIGN_IN_PLANET = {
+const HOUSE_THEME={
+  1:"В сфере личности и самопроявления",2:"В сфере ресурсов и ценностей",
+  3:"В сфере коммуникации и обучения",4:"В сфере дома и семьи",
+  5:"В сфере творчества и романтики",6:"В сфере труда и здоровья",
+  7:"В сфере партнёрства и отношений",8:"В сфере трансформации и тайного",
+  9:"В сфере философии и путешествий",10:"В сфере карьеры и статуса",
+  11:"В сфере дружбы и социальных связей",12:"В сфере подсознания и духовности",
+};
+const SIGN_INTERP={
+  "Овен":"проявляется через инициативу, прямоту и первопроходческую энергию",
+  "Телец":"раскрывается через устойчивость, терпение и чувственную связь с материальным",
+  "Близнецы":"выражается через гибкость, любознательность и коммуникативный дар",
+  "Рак":"проявляется через эмоциональную глубину, интуицию и заботу о близких",
+  "Лев":"раскрывается через харизму, творчество и стремление к яркому самовыражению",
+  "Дева":"выражается через аналитичность, внимание к деталям и стремление к мастерству",
+  "Весы":"проявляется через дипломатичность, эстетику и поиск гармонии",
+  "Скорпион":"раскрывается через интенсивность, глубину и трансформирующую силу",
+  "Стрелец":"выражается через оптимизм, философский взгляд и стремление к свободе",
+  "Козерог":"проявляется через дисциплину, амбиции и практическое мышление",
+  "Водолей":"раскрывается через оригинальность, независимость и гуманистические ценности",
+  "Рыбы":"выражается через интуицию, сострадание и растворение в большем",
+};
+const SIGN_IN_PLANET={
   "Солнце":{
-    "Овен":"Солнце в Овне даёт прямую, пионерскую натуру. Вы рождены действовать первым, брать инициативу и прокладывать новые пути. Энергия бьёт ключом, но важно развить терпение и умение завершать начатое.",
-    "Телец":"Солнце в Тельце формирует устойчивую, надёжную личность. Вы ценны своим терпением, практичностью и верностью. Ваша сила — в последовательности, слабость — в сопротивлении переменам.",
-    "Близнецы":"Солнце в Близнецах создаёт многогранную, любознательную личность. Ваша сила — в адаптивности и умении видеть разные стороны. Вызов — научиться глубине и завершённости.",
-    "Рак":"Солнце в Раке формирует глубоко чувствительную, заботливую личность. Ваша сила — интуиция и умение создавать безопасность. Важно научиться защищать себя, не закрываясь от мира.",
-    "Лев":"Солнце в Льве — это солнечная, харизматичная натура. Вы рождены выражать себя ярко и великодушно. Ваш путь — научиться светить не ради аплодисментов, а из радости самовыражения.",
-    "Дева":"Солнце в Деве даёт аналитичный, практичный характер. Ваша сила — внимание к деталям и стремление к совершенству. Путь роста — принять несовершенство мира с любовью, а не критикой.",
-    "Весы":"Солнце в Весах создаёт дипломатичную, эстетически чуткую личность. Ваша сила — умение находить баланс. Вызов — научиться принимать решения самостоятельно, не зависеть от одобрения.",
-    "Скорпион":"Солнце в Скорпионе формирует интенсивную, глубокую натуру. Вы видите то, что скрыто от других. Ваша сила — трансформация; путь роста — научиться доверять и отпускать.",
-    "Стрелец":"Солнце в Стрельце даёт оптимистичную, философскую натуру. Ваша сила — широкий взгляд и вдохновение других. Вызов — развить дисциплину и внимание к деталям.",
-    "Козерог":"Солнце в Козероге формирует амбициозную, дисциплинированную личность. Ваша сила — в настойчивости и стратегическом мышлении. Путь роста — позволить себе радость без обязательного результата.",
-    "Водолей":"Солнце в Водолее создаёт оригинальную, независимую натуру. Ваша сила — нестандартное мышление и гуманизм. Вызов — научиться близости и не терять себя за идеями.",
-    "Рыбы":"Солнце в Рыбах формирует чуткую, интуитивную личность. Ваша сила — эмпатия и творчество. Путь роста — научиться устанавливать границы и воплощать мечты в реальность.",
+    "Овен":"Рождены лидером и первопроходцем. Ваша сила — прямая, мощная энергия действия. Путь роста — научиться терпению и завершённости.",
+    "Телец":"Устойчивая, надёжная личность. Ваша сила — терпение и верность себе. Путь роста — открытость переменам.",
+    "Близнецы":"Многогранная, любознательная натура. Ваша сила — адаптивность. Путь роста — глубина и завершённость.",
+    "Рак":"Чуткая, заботливая личность. Ваша сила — интуиция. Путь роста — защищать себя, не закрываясь от мира.",
+    "Лев":"Солнечная, харизматичная натура. Путь роста — светить из радости, а не ради аплодисментов.",
+    "Дева":"Аналитичный, практичный характер. Путь роста — принять несовершенство мира с любовью.",
+    "Весы":"Дипломатичная, эстетически чуткая личность. Путь роста — принимать решения самостоятельно.",
+    "Скорпион":"Интенсивная, глубокая натура. Вы видите скрытое. Путь роста — научиться доверять и отпускать.",
+    "Стрелец":"Оптимистичная, философская натура. Путь роста — дисциплина и внимание к деталям.",
+    "Козерог":"Амбициозная, дисциплинированная личность. Путь роста — позволить себе радость без обязательного результата.",
+    "Водолей":"Оригинальная, независимая натура. Путь роста — научиться близости и не терять себя за идеями.",
+    "Рыбы":"Чуткая, интуитивная личность. Путь роста — границы и воплощение мечт в реальность.",
   },
   "Луна":{
-    "Овен":"Луна в Овне даёт быстрые, интенсивные эмоциональные реакции. Вы нуждаетесь в действии для эмоционального комфорта и не выносите долгого ожидания. Важно научиться паузе перед реакцией.",
-    "Телец":"Луна в Тельце — одно из сильнейших положений. Вы нуждаетесь в стабильности, физическом комфорте и предсказуемости. Ваши эмоции устойчивы, и вы глубоко чувствуете связь с телом и природой.",
-    "Близнецы":"Луна в Близнецах даёт переменчивые, быстрые эмоции. Вам нужно общение и интеллектуальная стимуляция для внутреннего комфорта. Важно найти способы эмоционального заземления.",
-    "Рак":"Луна в Раке — на своём домашнем месте. Глубокая чувствительность, сильная привязанность к дому и семье. Интуиция исключительно развита. Важно не поглощаться эмоциями других.",
-    "Лев":"Луна в Льве требует признания и тепла для эмоционального благополучия. Вы отдаёте любовь щедро и ждёте того же в ответ. Нужно научиться не ставить самооценку в зависимость от одобрения.",
-    "Дева":"Луна в Деве выражает эмоции через заботу и практическую помощь. Вы чувствуете себя лучше, когда всё упорядочено. Нужно научиться принимать поддержку, а не только давать её.",
-    "Весы":"Луна в Весах ищет гармонию и баланс в эмоциональной сфере. Конфликты переносятся тяжело. Нужно развить умение переносить дискомфорт не избегая, а проходя через него.",
-    "Скорпион":"Луна в Скорпионе — глубокая, интенсивная эмоциональность. Вы чувствуете с огромной силой, но скрываете это. Нужно научиться доверять и позволять уязвимости быть силой.",
-    "Стрелец":"Луна в Стрельце нуждается в свободе и смысле для эмоционального комфорта. Пессимизм и ограничения переносятся тяжело. Нужно научиться присутствовать здесь и сейчас.",
-    "Козерог":"Луна в Козероге — сдержанная, самодостаточная эмоциональность. Эмоции выражаются через дела, а не слова. Важно позволить себе уязвимость и принять заботу окружающих.",
-    "Водолей":"Луна в Водолее нуждается в пространстве и независимости в эмоциональной сфере. Вы можете казаться холодным, но на самом деле глубоко переживаете. Нужно развить эмоциональную близость.",
-    "Рыбы":"Луна в Рыбах — исключительная чуткость и эмпатия. Вы буквально впитываете чужие эмоции. Важно научиться отличать свои чувства от чужих и восстанавливать границы.",
-  },
-  "Меркурий":{
-    "Овен":"Меркурий в Овне — быстрый, прямой, острый ум. Вы думаете и говорите мгновенно. Сила — в смелости мысли; вызов — в терпении к длинным объяснениям и чужой медлительности.",
-    "Телец":"Меркурий в Тельце думает медленно, но основательно. Вы не торопитесь с выводами, зато ваши решения надёжны. Сила — в практическом мышлении и хорошей памяти.",
-    "Близнецы":"Меркурий в Близнецах — в своей стихии. Острый ум, лёгкость в словах, быстрое переключение. Сила — в коммуникации; вызов — в глубине и завершённости мыслей.",
-    "Рак":"Меркурий в Раке думает образами и эмоциями. Интуитивное мышление, хорошая память на детали. Сила — в эмпатическом понимании; вызов — в объективности.",
-    "Лев":"Меркурий в Льве — яркая, убедительная речь. Вы умеете вдохновлять словом. Сила — в харизме; вызов — слышать других так же внимательно, как себя.",
-    "Дева":"Меркурий в Деве — острый аналитический ум. Детали, точность, критическое мышление. Сила — в систематизации; вызов — видеть большую картину за деталями.",
-    "Весы":"Меркурий в Весах — дипломатичный, взвешенный ум. Вы видите обе стороны любого вопроса. Сила — в справедливости; вызов — принятие решений без бесконечных колебаний.",
-    "Скорпион":"Меркурий в Скорпионе — проникающий, глубокий ум. Вы видите скрытое и читаете между строк. Сила — в психологической проницательности; вызов — избегать излишней подозрительности.",
-    "Стрелец":"Меркурий в Стрельце мыслит широко и стратегически. Вы видите большую картину, но можете упускать детали. Сила — в философском взгляде; вызов — точность и конкретность.",
-    "Козерог":"Меркурий в Козероге — практичный, структурированный ум. Вы думаете долгосрочно и системно. Сила — в стратегическом мышлении; вызов — гибкость и открытость новому.",
-    "Водолей":"Меркурий в Водолее — оригинальный, нестандартный ум. Вы находите связи там, где другие не видят. Сила — в инновациях; вызов — принятие традиционных путей когда они работают.",
-    "Рыбы":"Меркурий в Рыбах — интуитивное, образное мышление. Вы думаете символами и метафорами. Сила — в творческом взгляде; вызов — чёткость в коммуникации и конкретность.",
-  },
-  "Венера":{
-    "Овен":"Венера в Овне любит страстно, прямо и немедленно. В отношениях вы инициатор. Ваша притягательность — в смелости и живой энергии. Вызов — развить терпение в любви.",
-    "Телец":"Венера в Тельце — в своём доме. Глубокая чувственность, верность, любовь к красоте и комфорту. Ваша притягательность — надёжность и тепло. Вызов — открытость переменам.",
-    "Близнецы":"Венера в Близнецах ценит интеллектуальное общение и лёгкость. В любви вам нужны разнообразие и живой разговор. Ваша притягательность — остроумие и игривость.",
-    "Рак":"Венера в Раке любит глубоко и преданно. Вы создаёте уют и заботу в отношениях. Ваша притягательность — нежность и верность. Вызов — не растворяться в партнёре.",
-    "Лев":"Венера в Льве любит ярко, щедро и с театральностью. В отношениях вы хотите быть главной звездой. Ваша притягательность — харизма и тепло. Вызов — признавать достоинства партнёра.",
-    "Дева":"Венера в Деве выражает любовь через заботу и практическую помощь. Ваша притягательность — в надёжности и внимании к деталям. Вызов — принять несовершенство любимых.",
-    "Весы":"Венера в Весах — в своём доме. Романтичность, эстетика и стремление к гармонии в отношениях. Ваша притягательность — красота и изящество. Вызов — прямота и умение говорить «нет».",
-    "Скорпион":"Венера в Скорпионе любит интенсивно и тотально. Поверхностность не для вас. Ваша притягательность — глубина и магнетизм. Вызов — научиться доверять и отпускать контроль.",
-    "Стрелец":"Венера в Стрельце ценит свободу и рост в отношениях. Вы притягиваете через оптимизм и приключения. Ваша притягательность — широта взглядов. Вызов — постоянство и обязательства.",
-    "Козерог":"Венера в Козероге серьёзна в любви. Вы ищете надёжного партнёра на долгий срок. Ваша притягательность — стабильность и верность. Вызов — эмоциональная открытость.",
-    "Водолей":"Венера в Водолее ценит дружбу и независимость в отношениях. Вы притягиваете через оригинальность. Ваша притягательность — нестандартность. Вызов — эмоциональная близость.",
-    "Рыбы":"Венера в Рыбах — идеалистичная, романтичная любовь. Вы ищете слияния душ. Ваша притягательность — нежность и интуиция. Вызов — ясные границы и реалистичный взгляд на партнёра.",
-  },
-  "Марс":{
-    "Овен":"Марс в Овне — в своём доме. Мощная, прямая энергия действия. Вы достигаете целей напором и смелостью. Вызов — научиться стратегии вместо только тактики.",
-    "Телец":"Марс в Тельце действует медленно, но неотступно. Ваша сила — в упорстве и последовательности. Когда вы начали движение — вас не остановить. Вызов — гибкость в методах.",
-    "Близнецы":"Марс в Близнецах достигает целей через слова, контакты и информацию. Ваша сила — в переговорах и коммуникации. Вызов — концентрация на одной цели.",
-    "Рак":"Марс в Раке действует через защиту и заботу. Ваша мотивация — безопасность близких. Сила — в стойкости; вызов — действовать из силы, а не из страха или обиды.",
-    "Лев":"Марс в Льве достигает целей с творческим огнём и смелостью. Ваша сила — лидерство и вдохновение. Вызов — делиться лаврами и признавать вклад команды.",
-    "Дева":"Марс в Деве работает методично и детально. Ваша сила — в мастерстве и точности. Вызов — не зависнуть в оттачивании деталей вместо движения вперёд.",
-    "Весы":"Марс в Весах достигает целей через сотрудничество и дипломатию. Ваша сила — в партнёрстве. Вызов — действовать решительно и самостоятельно когда это нужно.",
-    "Скорпион":"Марс в Скорпионе — мощная, стратегическая энергия. Вы действуете с глубоким намерением и не сдаётесь. Сила — в стойкости; вызов — не превращать волю в одержимость.",
-    "Стрелец":"Марс в Стрельце действует с энтузиазмом и оптимизмом. Ваша сила — вдохновляющая энергия. Вызов — доводить начатое до конца, а не увлекаться следующей идеей.",
-    "Козерог":"Марс в Козероге — дисциплинированная, стратегическая энергия. Вы строите цели планомерно. Сила — в долгосрочном видении; вызов — не жертвовать настоящим ради будущего.",
-    "Водолей":"Марс в Водолее действует нестандартно и через коллектив. Ваша сила — в инновациях и объединении людей. Вызов — личная инициатива без поддержки группы.",
-    "Рыбы":"Марс в Рыбах действует интуитивно и через вдохновение. Ваша сила — в гибкости и чувствовании момента. Вызов — чёткие цели и последовательное движение к ним.",
+    "Овен":"Быстрые, интенсивные эмоции. Нуждаетесь в действии для комфорта. Учитесь паузе перед реакцией.",
+    "Телец":"Одно из сильнейших положений. Глубокая потребность в стабильности и физическом комфорте.",
+    "Близнецы":"Переменчивые эмоции. Для комфорта нужны общение и интеллектуальная стимуляция.",
+    "Рак":"Луна дома. Глубокая чувствительность, сильная интуиция, привязанность к дому.",
+    "Лев":"Нуждаетесь в признании и тепле. Отдаёте любовь щедро и ждёте того же в ответ.",
+    "Дева":"Эмоции выражаются через заботу и практическую помощь. Важно принимать поддержку.",
+    "Весы":"Ищете гармонию и баланс. Конфликты переносятся тяжело. Учитесь проходить через дискомфорт.",
+    "Скорпион":"Глубокая, интенсивная эмоциональность. Чувствуете мощно, но скрываете. Уязвимость — сила.",
+    "Стрелец":"Нуждаетесь в свободе и смысле. Учитесь присутствовать здесь и сейчас.",
+    "Козерог":"Сдержанная эмоциональность. Эмоции через дела. Важно позволить себе уязвимость.",
+    "Водолей":"Нуждаетесь в пространстве. Можете казаться холодным, но глубоко переживаете.",
+    "Рыбы":"Исключительная чуткость. Впитываете чужие эмоции. Учитесь отличать своё от чужого.",
   },
 };
-
-const DEFAULT_SIGN_INTERP = {
-  "Овен":"Знак Овна привносит инициативу, прямоту и первопроходческую энергию.",
-  "Телец":"Знак Тельца добавляет устойчивость, терпение и чувственную связь с материальным.",
-  "Близнецы":"Знак Близнецов привносит гибкость, любознательность и коммуникативный дар.",
-  "Рак":"Знак Рака добавляет эмоциональную глубину, интуицию и заботу.",
-  "Лев":"Знак Льва привносит харизму, творчество и стремление к самовыражению.",
-  "Дева":"Знак Девы добавляет аналитичность, порядок и стремление к мастерству.",
-  "Весы":"Знак Весов привносит дипломатичность, эстетику и поиск гармонии.",
-  "Скорпион":"Знак Скорпиона добавляет интенсивность, глубину и трансформирующую силу.",
-  "Стрелец":"Знак Стрельца привносит оптимизм, философский взгляд и любовь к свободе.",
-  "Козерог":"Знак Козерога добавляет дисциплину, амбиции и практичность.",
-  "Водолей":"Знак Водолея привносит оригинальность, независимость и гуманистические ценности.",
-  "Рыбы":"Знак Рыб добавляет интуицию, сострадание и растворение в большем.",
-};
-
-function getInterpText(planet, sign_ru, retro){
-  const role = PLANET_ROLE[planet] || "";
-  const signSpecific = (SIGN_IN_PLANET[planet] && SIGN_IN_PLANET[planet][sign_ru])
-    || DEFAULT_SIGN_INTERP[sign_ru] || "";
-  const retStr = retro ? " <span style=\"color:var(--red)\">Ретроградный " + planet + "</span> означает, что тема этой планеты особенно внутренняя: энергия направлена вглубь, а не наружу. Это зона глубокой переработки и внутреннего роста." : "";
-  return `<span class="interp-highlight">${role}</span> ${signSpecific}${retStr ? "<br><br>" + retStr : ""}`;
-}
 
 function renderInterp(d){
-  const list=document.getElementById("interp-list"); list.innerHTML="";
-  // ASC
-  const ascDiv=document.createElement("div"); ascDiv.className="interp-block";
-  ascDiv.innerHTML=`<div class="interp-header">
-    <div class="interp-emo">↑</div>
-    <div><div class="interp-title">Асцендент (ASC)</div>
-    <div class="interp-sign">${d.asc.sign_emoji} ${d.asc.sign_ru} ${d.asc.deg}°${String(d.asc.min).padStart(2,"0")}'</div></div>
-  </div>
-  <div class="interp-text"><span class="interp-highlight">Асцендент — ваша социальная маска и образ в глазах других.</span> Это знак горизонта в момент вашего рождения, определяющий первое впечатление, которое вы производите. ${DEFAULT_SIGN_INTERP[d.asc.sign_ru]||""} Асцендент также влияет на внешность и телосложение.</div>`;
-  list.appendChild(ascDiv);
-  // Planets
+  const list=document.getElementById("interp-list");list.innerHTML="";
+  // Summary card
+  const sumDiv=document.createElement("div");sumDiv.className="interp-block";
+  sumDiv.style.borderColor="rgba(167,139,250,0.4)";
+  sumDiv.innerHTML=`<div class="interp-header"><div class="interp-emo">🌌</div><div><div class="interp-title">Общий портрет</div></div></div>
+  <div class="interp-text">
+  <span class="interp-hl">Доминирующая стихия: ${d.dominant.element_ru}</span> — ${getElemDesc(d.dominant.element)}<br><br>
+  <span class="interp-hl">Доминирующая модальность: ${d.dominant.modality_ru}</span> — ${getModDesc(d.dominant.modality)}<br><br>
+  <span class="interp-hl">Асцендент в ${d.asc.sign_ru}</span> — ваша социальная маска и первое впечатление. ${SIGN_INTERP[d.asc.sign_ru]||""}.
+  </div>`;
+  list.appendChild(sumDiv);
+
   for(const p of d.planets){
-    const retStr=p.retro?` <span style="color:var(--red)">℞</span>`:"";
-    const div=document.createElement("div"); div.className="interp-block";
+    const retMark=p.retro?` <span style="color:var(--red)">℞</span>`:"";
+    const role=PLANET_ROLE[p.name]||"";
+    const signSpec=(SIGN_IN_PLANET[p.name]&&SIGN_IN_PLANET[p.name][p.sign_ru])||"";
+    const signGen=SIGN_INTERP[p.sign_ru]||"";
+    const houseTheme=HOUSE_THEME[p.house]||"";
+    const retroNote=p.retro?`<br><br><span style="color:var(--red)">℞ Ретроградный ${p.name}</span> — энергия этой планеты направлена вглубь. Тема переосмысляется изнутри, а не реализуется напрямую.`:"";
+
+    const div=document.createElement("div");div.className="interp-block";
     div.innerHTML=`<div class="interp-header">
       <div class="interp-emo">${p.emoji}</div>
-      <div><div class="interp-title">${p.name}${retStr}</div>
-      <div class="interp-sign">${p.sign_emoji} ${p.sign_ru} · ${p.deg}°${String(p.min).padStart(2,"0")}'</div></div>
+      <div><div class="interp-title">${p.name}${retMark}</div>
+      <div class="interp-sign">${p.sign_emoji} ${p.sign_ru} · ${p.deg}°${String(p.min).padStart(2,"0")}'</div>
+      <div class="interp-house">🏠 Дом ${p.house} — ${houseTheme}</div></div>
     </div>
-    <div class="interp-text">${getInterpText(p.name, p.sign_ru, p.retro)}</div>`;
+    <div class="interp-text">
+      <span class="interp-hl">${role}</span>${signSpec?" "+signSpec:""} ${!signSpec&&signGen?"В знаке "+p.sign_ru+" "+signGen+".":""} ${houseTheme?"<br><br>"+houseTheme+": это сфера, где данная планетарная тема проявляется наиболее активно в вашей жизни.":""}${retroNote}
+    </div>`;
     list.appendChild(div);
   }
 }
 
-// Restore saved
-try{
-  const saved=JSON.parse(sessionStorage.getItem("lastBirth")||"null");
-  if(saved){inpDate.value=saved.date||"";inpTime.value=saved.time||"12:00";}
-}catch(e){}
-inpDate.addEventListener("change",()=>{try{sessionStorage.setItem("lastBirth",JSON.stringify({date:inpDate.value,time:inpTime.value}));}catch(e){}});
+function getElemDesc(e){
+  return{fire:"ваша энергия направлена к действию, вдохновению и лидерству",earth:"вы практичны, надёжны и ориентированы на результат",air:"вы мыслите абстрактно, цените общение и идеи",water:"вы тонко чувствуете, интуитивны и эмоционально глубоки"}[e]||"";}
+function getModDesc(m){
+  return{cardinal:"вы инициатор — запускаете процессы и берёте на себя ответственность",fixed:"вы строитель — доводите начатое до конца с железной стойкостью",mutable:"вы адаптер — гибко реагируете на изменения и видите разные пути"}[m]||"";}
+
+// ── Restore saved input ──
+try{const s=JSON.parse(sessionStorage.getItem("nb")||"null");if(s){inpDate.value=s.d||"";inpTime.value=s.t||"12:00";}}catch(e){}
+inpDate.addEventListener("change",()=>{try{sessionStorage.setItem("nb",JSON.stringify({d:inpDate.value,t:inpTime.value}));}catch(e){}});
 </script>
 </body>
 </html>

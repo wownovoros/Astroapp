@@ -2,6 +2,8 @@ import json
 import logging
 import os
 import sys
+import threading
+import time
 
 # ── Patch: pyswisseph >= 2.8 returns (tuple, retflag); flatlib expects tuple ─
 import swisseph as _sw
@@ -47,6 +49,53 @@ def _cors_response():
     r.headers["Access-Control-Allow-Headers"] = "Content-Type"
     return r
 
+# ── API: geocode (city search via Nominatim) ──────────────────────────────────
+_tf = None
+def _get_tf():
+    global _tf
+    if _tf is None:
+        from timezonefinder import TimezoneFinder
+        _tf = TimezoneFinder()
+    return _tf
+
+@app.route("/api/geocode")
+def geocode():
+    q = request.args.get("q", "").strip()
+    if len(q) < 2:
+        return jsonify([])
+    try:
+        r = requests.get(
+            "https://nominatim.openstreetmap.org/search",
+            params={"q": q, "format": "json", "limit": 6, "addressdetails": 1},
+            headers={"User-Agent": "AstroApp/2.0 (astroapp-gk0z.onrender.com)"},
+            timeout=8,
+        )
+        results = r.json()
+        output = []
+        for item in results:
+            lat = float(item["lat"])
+            lon = float(item["lon"])
+            addr = item.get("address", {})
+            city = (addr.get("city") or addr.get("town") or addr.get("village")
+                    or addr.get("municipality") or addr.get("county") or "")
+            state = addr.get("state") or addr.get("region") or ""
+            country = addr.get("country") or ""
+            parts = [p for p in [city, state, country] if p and p != city or p == city]
+            # deduplicate
+            seen = set()
+            clean = []
+            for p in [city, state, country]:
+                if p and p not in seen:
+                    seen.add(p)
+                    clean.append(p)
+            display = ", ".join(clean) if clean else item.get("display_name", "")
+            tz_name = _get_tf().timezone_at(lat=lat, lng=lon) or "UTC"
+            output.append({"display": display, "lat": lat, "lon": lon, "tz_name": tz_name})
+        return jsonify(output)
+    except Exception as e:
+        log.error("geocode error: %s", e)
+        return jsonify([])
+
 # ── API: horoscope ────────────────────────────────────────────────────────────
 @app.route("/api/horoscope")
 def horoscope():
@@ -71,8 +120,14 @@ def natal_data():
         body = request.get_json(force=True) or {}
         birthdate = body.get("birthdate", "")
         birthtime = body.get("birthtime", "12:00")
+        lat     = body.get("lat")
+        lon     = body.get("lon")
+        tz_name = body.get("tz_name")
         from services.natal import build_natal_data
-        data = build_natal_data(birthdate, birthtime)
+        data = build_natal_data(birthdate, birthtime,
+                                lat=float(lat) if lat is not None else None,
+                                lon=float(lon) if lon is not None else None,
+                                tz_name=tz_name)
         resp = jsonify(data)
     except Exception as e:
         log.error("natal-data error: %s", e)
@@ -123,7 +178,7 @@ def _send_start(chat_id):
         return
     payload = {
         "chat_id": chat_id,
-        "text": "Ваш личный астролог.\nНажмите кнопку чтобы открыть приложение.",
+        "text": "🌌 Ваш личный астролог.\n\nНажмите кнопку чтобы открыть приложение.\n⏳ Если первый раз за день — подождите 10–15 секунд.",
         "reply_markup": json.dumps({
             "inline_keyboard": [[{
                 "text": "Открыть Astro ✨",
@@ -151,6 +206,24 @@ def setup():
         timeout=10
     )
     return jsonify(r.json())
+
+# ── Keep-alive: ping own /health every 10 min to prevent Render free-tier sleep ─
+def _keepalive():
+    """Background thread — prevents Render free-tier from sleeping."""
+    time.sleep(90)  # wait for gunicorn to fully start
+    app_url = os.getenv("MINI_APP_URL", "").rstrip("/")
+    if not app_url:
+        log.info("keepalive: MINI_APP_URL not set, skipping")
+        return
+    while True:
+        try:
+            r = requests.get(f"{app_url}/health", timeout=15)
+            log.info("keepalive ping -> %s", r.status_code)
+        except Exception as e:
+            log.warning("keepalive ping failed: %s", e)
+        time.sleep(600)  # every 10 minutes
+
+threading.Thread(target=_keepalive, daemon=True).start()
 
 # ── Run ───────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":

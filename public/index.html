@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>AstroApp</title>
-<script src="https://telegram.org/js/telegram-web-app.js"><\/script>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
@@ -656,6 +656,6 @@ try{
   if(saved){inpDate.value=saved.date||"";inpTime.value=saved.time||"12:00";}
 }catch(e){}
 inpDate.addEventListener("change",()=>{try{sessionStorage.setItem("lastBirth",JSON.stringify({date:inpDate.value,time:inpTime.value}));}catch(e){}});
-<\/script>
+</script>
 </body>
 </html>

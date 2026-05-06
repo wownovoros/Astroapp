@@ -2,245 +2,511 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>Astro</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#0d0d1a;--card:rgba(255,255,255,0.06);--border:rgba(255,255,255,0.12);
-  --text:#f0f0ff;--dim:rgba(240,240,255,0.55);--accent:#a78bfa;--gold:#fbbf24;--r:16px;
+  --bg:#0d0d1a;--card:rgba(255,255,255,0.07);--border:rgba(255,255,255,0.13);
+  --text:#f0f0ff;--dim:rgba(240,240,255,0.5);--accent:#a78bfa;--gold:#fbbf24;
+  --green:#34d399;--red:#f87171;--r:14px;
 }
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;overflow-x:hidden}
 .stars{position:fixed;inset:0;pointer-events:none;z-index:0}
-.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--d) ease-in-out infinite}
-@keyframes twinkle{0%,100%{opacity:var(--lo)}50%{opacity:1;transform:scale(1.3)}}
-.screen{position:absolute;top:0;left:0;width:100%;min-height:100vh;padding:28px 20px 40px;z-index:1;
-  transition:opacity .3s,transform .3s;display:flex;flex-direction:column}
-.screen.hidden{opacity:0;pointer-events:none;transform:translateY(18px)}
-.logo-wrap{text-align:center;margin-bottom:36px}
-.logo{font-size:56px;margin-bottom:6px}
-.title{font-size:30px;font-weight:800;background:linear-gradient(135deg,#a78bfa,#fbbf24);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.sub{color:var(--dim);font-size:15px;margin-top:4px}
-label.lbl{display:block;color:var(--dim);font-size:12px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
-.date-in{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);
-  padding:18px;color:var(--text);font-size:22px;font-weight:700;text-align:center;
-  letter-spacing:4px;outline:none;transition:border-color .2s}
-.date-in:focus{border-color:var(--accent)}
-.hint{text-align:center;color:var(--dim);font-size:13px;margin-top:8px}
-.btn{width:100%;padding:17px;border-radius:var(--r);font-size:16px;font-weight:700;
-  cursor:pointer;border:none;transition:transform .15s,opacity .15s;margin-top:24px}
+.star{position:absolute;background:#fff;border-radius:50%;animation:tw var(--d) ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:var(--lo)}50%{opacity:1;transform:scale(1.4)}}
+.page{display:none;flex-direction:column;min-height:100vh;padding:24px 16px 60px;position:relative;z-index:1}
+.page.active{display:flex}
+
+/* INPUT PAGE */
+.logo{text-align:center;margin-bottom:28px}
+.logo-ico{font-size:52px}
+.logo-title{font-size:28px;font-weight:800;background:linear-gradient(135deg,#a78bfa,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-sub{color:var(--dim);font-size:13px;margin-top:3px}
+.lbl{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--dim);margin-bottom:7px}
+.inp{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:15px;color:var(--text);font-size:18px;font-weight:700;text-align:center;letter-spacing:3px;outline:none;transition:border-color .2s}
+.inp:focus{border-color:var(--accent)}
+.inp-time{letter-spacing:5px}
+.hint{text-align:center;color:var(--dim);font-size:12px;margin-top:6px}
+.field{margin-bottom:16px}
+.btn{width:100%;padding:16px;border-radius:var(--r);font-size:16px;font-weight:700;cursor:pointer;border:none;transition:transform .15s,opacity .15s;margin-top:8px}
 .btn-main{background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff}
 .btn-main:active{transform:scale(.97)}
-.hero{text-align:center;padding:20px 0 12px}
-.z-emoji{font-size:88px;display:block;animation:float 4s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.z-name{font-size:34px;font-weight:800;margin-top:8px}
-.z-date{color:var(--gold);font-size:14px;margin-top:4px}
-.grid{display:flex;flex-direction:column;gap:12px;margin-top:20px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
-  padding:18px 20px;cursor:pointer;display:flex;align-items:center;gap:16px;transition:all .18s}
-.card:active{transform:scale(.975);background:rgba(255,255,255,0.1)}
-.card-ico{font-size:30px;flex-shrink:0}
-.card-txt h3{font-size:16px;font-weight:600}
-.card-txt p{font-size:13px;color:var(--dim);margin-top:2px}
-.arr{margin-left:auto;color:var(--dim);font-size:20px;flex-shrink:0}
-.badge{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;
-  font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px;flex-shrink:0}
-.back{display:flex;align-items:center;gap:6px;color:var(--accent);cursor:pointer;
-  font-size:15px;font-weight:500;margin-bottom:22px;width:fit-content}
-.page-title{font-size:22px;font-weight:700;margin-bottom:18px}
-.horo-body{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
-  padding:22px;line-height:1.75;font-size:15px;color:var(--text);flex:1}
-.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:16px;padding:70px 0}
-.spinner{width:42px;height:42px;border:3px solid rgba(167,139,250,.2);
-  border-top-color:var(--accent);border-radius:50%;animation:spin .75s linear infinite}
+.btn-sec{background:var(--card);border:1.5px solid var(--border);color:var(--text);margin-top:12px}
+
+/* TABS */
+.tabs{display:flex;gap:4px;background:var(--card);border-radius:12px;padding:4px;margin-bottom:16px;flex-shrink:0}
+.tab{flex:1;padding:9px 4px;border:none;background:transparent;color:var(--dim);font-size:12px;font-weight:600;border-radius:9px;cursor:pointer;transition:all .2s}
+.tab.active{background:var(--accent);color:#fff}
+
+/* CHART WHEEL */
+.wheel-wrap{display:flex;justify-content:center;margin-bottom:12px}
+.wheel-wrap svg{max-width:340px;width:100%}
+
+/* PLANET TABLE */
+.planet-table{display:flex;flex-direction:column;gap:8px}
+.planet-row{display:flex;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;gap:12px}
+.planet-row.retro{border-color:rgba(248,113,113,0.3)}
+.p-emo{font-size:22px;flex-shrink:0;width:30px;text-align:center}
+.p-name{font-size:14px;font-weight:700;flex:1}
+.p-pos{text-align:right}
+.p-sign{font-size:15px;font-weight:700;color:var(--accent)}
+.p-deg{font-size:12px;color:var(--dim);margin-top:1px}
+.p-retro{font-size:11px;color:var(--red);font-weight:700;margin-top:2px}
+.p-meaning{font-size:11px;color:var(--dim);margin-top:3px;line-height:1.4}
+
+/* ASPECTS */
+.asp-list{display:flex;flex-direction:column;gap:6px}
+.asp-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.asp-row.harm{border-color:rgba(52,211,153,0.25)}
+.asp-row.tens{border-color:rgba(248,113,113,0.25)}
+.asp-planets{font-size:16px;flex-shrink:0;width:42px;text-align:center}
+.asp-name{flex:1;font-size:13px;font-weight:600}
+.asp-orb{font-size:11px;color:var(--dim)}
+.asp-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.asp-dot.harm{background:var(--green)}
+.asp-dot.tens{background:var(--red)}
+.asp-dot.neut{background:var(--gold)}
+
+/* INTERPRETATION */
+.interp-block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px}
+.interp-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.interp-emo{font-size:24px}
+.interp-title{font-size:15px;font-weight:700}
+.interp-sign{font-size:13px;color:var(--accent);margin-top:1px}
+.interp-text{font-size:13px;color:var(--dim);line-height:1.6}
+
+/* HEADER */
+.page-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.back-btn{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 12px;font-size:13px;cursor:pointer;color:var(--text)}
+.page-title{font-size:17px;font-weight:800;flex:1}
+.birth-info{font-size:12px;color:var(--dim)}
+
+/* LOADING */
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:16px}
+.spinner{width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.load-txt{color:var(--dim);font-size:14px}
-.err{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);
-  border-radius:var(--r);padding:18px;color:#fca5a5;font-size:14px;text-align:center}
-.natal-wrap{display:flex;flex-direction:column;gap:10px}
-.natal-row{background:var(--card);border:1px solid var(--border);
-  border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.6}
-.natal-head{font-size:18px;font-weight:700;color:var(--accent);margin-bottom:12px}
-.natal-tip{color:var(--dim);font-size:13px;font-style:italic;margin-top:10px}
+.loading-text{color:var(--dim);font-size:14px}
+
+.section-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--dim);margin:16px 0 10px}
+.asc-mc-row{display:flex;gap:8px;margin-bottom:16px}
+.asc-mc-card{flex:1;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center}
+.asc-mc-label{font-size:11px;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.asc-mc-sign{font-size:20px;margin:4px 0 2px}
+.asc-mc-name{font-size:14px;font-weight:700;color:var(--accent)}
+.asc-mc-deg{font-size:11px;color:var(--dim)}
 </style>
 </head>
 <body>
+
+<!-- Stars -->
 <div class="stars" id="stars"></div>
 
-<!-- SCREEN: birthday -->
-<div class="screen" id="s-birth">
-  <div class="logo-wrap">
-    <div class="logo">🔮</div>
-    <div class="title">Astro</div>
-    <div class="sub">Гороскоп и натальная карта</div>
+<!-- PAGE 1: Input -->
+<div class="page active" id="page-input">
+  <div class="logo">
+    <div class="logo-ico">🌌</div>
+    <div class="logo-title">Натальная карта</div>
+    <div class="logo-sub">Ваш личный астрологический портрет</div>
   </div>
-  <label class="lbl">Дата рождения</label>
-  <input class="date-in" id="inp" type="text" placeholder="09-11-1998" maxlength="10" inputmode="numeric">
-  <div class="hint">Формат: ДД-ММ-ГГГГ</div>
-  <button class="btn btn-main" onclick="saveBirth()">Продолжить ✨</button>
+  <div class="field">
+    <label class="lbl">Дата рождения</label>
+    <input class="inp" id="inp-date" type="text" placeholder="15-06-1990" maxlength="10" inputmode="numeric">
+    <div class="hint">Формат: ДД-ММ-ГГГГ</div>
+  </div>
+  <div class="field">
+    <label class="lbl">Время рождения</label>
+    <input class="inp inp-time" id="inp-time" type="text" placeholder="12:00" maxlength="5" inputmode="numeric">
+    <div class="hint">Если неизвестно — оставьте 12:00</div>
+  </div>
+  <button class="btn btn-main" id="btn-calc">✨ Рассчитать натальную карту</button>
 </div>
 
-<!-- SCREEN: menu -->
-<div class="screen hidden" id="s-menu">
-  <div class="hero">
-    <span class="z-emoji" id="m-emoji">♈</span>
-    <div class="z-name" id="m-name">Овен</div>
-    <div class="z-date" id="m-bd"></div>
+<!-- PAGE 2: Chart -->
+<div class="page" id="page-chart">
+  <div class="page-header">
+    <button class="back-btn" id="btn-back">← Назад</button>
+    <div>
+      <div class="page-title">Натальная карта</div>
+      <div class="birth-info" id="birth-info"></div>
+    </div>
   </div>
-  <div class="grid">
-    <div class="card" onclick="openHoro('day')">
-      <div class="card-ico">📅</div>
-      <div class="card-txt"><h3>Гороскоп на сегодня</h3><p>Что говорят звёзды сегодня</p></div>
-      <div class="arr">›</div>
+
+  <!-- Loading state -->
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Рассчитываю положения планет...</div>
+  </div>
+
+  <!-- Content (hidden until loaded) -->
+  <div id="chart-content" style="display:none">
+    <div class="tabs">
+      <button class="tab active" data-tab="wheel">Карта</button>
+      <button class="tab" data-tab="planets">Планеты</button>
+      <button class="tab" data-tab="aspects">Аспекты</button>
+      <button class="tab" data-tab="interp">Разбор</button>
     </div>
-    <div class="card" onclick="openHoro('week')">
-      <div class="card-ico">📆</div>
-      <div class="card-txt"><h3>Гороскоп на неделю</h3><p>Прогноз на ближайшие 7 дней</p></div>
-      <div class="arr">›</div>
-    </div>
-    <div class="card" onclick="openNatal()">
-      <div class="card-ico">⭐</div>
-      <div class="card-txt"><h3>Натальная карта</h3><p>Положение планет в момент рождения</p></div>
-      <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
-        <span class="badge">PRO</span><div class="arr">›</div>
+
+    <!-- TAB: Wheel -->
+    <div id="tab-wheel">
+      <div class="wheel-wrap"><svg id="natal-svg" viewBox="0 0 400 400"></svg></div>
+      <div class="asc-mc-row">
+        <div class="asc-mc-card">
+          <div class="asc-mc-label">Асцендент ↑</div>
+          <div class="asc-mc-sign" id="asc-emoji"></div>
+          <div class="asc-mc-name" id="asc-sign"></div>
+          <div class="asc-mc-deg" id="asc-deg"></div>
+        </div>
+        <div class="asc-mc-card">
+          <div class="asc-mc-label">Середина Неба MC</div>
+          <div class="asc-mc-sign" id="mc-emoji"></div>
+          <div class="asc-mc-name" id="mc-sign"></div>
+          <div class="asc-mc-deg" id="mc-deg"></div>
+        </div>
       </div>
     </div>
-    <div class="card" onclick="reset()">
-      <div class="card-ico">✏️</div>
-      <div class="card-txt"><h3>Изменить дату</h3><p>Ввести другую дату рождения</p></div>
-      <div class="arr">›</div>
+
+    <!-- TAB: Planets -->
+    <div id="tab-planets" style="display:none">
+      <div class="planet-table" id="planet-list"></div>
+    </div>
+
+    <!-- TAB: Aspects -->
+    <div id="tab-aspects" style="display:none">
+      <div class="section-title">Гармоничные аспекты</div>
+      <div class="asp-list" id="asp-harm"></div>
+      <div class="section-title">Напряжённые аспекты</div>
+      <div class="asp-list" id="asp-tens"></div>
+    </div>
+
+    <!-- TAB: Interpretation -->
+    <div id="tab-interp" style="display:none">
+      <div id="interp-list"></div>
     </div>
   </div>
-</div>
-
-<!-- SCREEN: horoscope -->
-<div class="screen hidden" id="s-horo">
-  <div class="back" onclick="go('menu')">‹ Назад</div>
-  <div class="page-title" id="horo-title">Гороскоп</div>
-  <div id="horo-body"></div>
-</div>
-
-<!-- SCREEN: natal -->
-<div class="screen hidden" id="s-natal">
-  <div class="back" onclick="go('menu')">‹ Назад</div>
-  <div class="page-title">Натальная карта</div>
-  <div id="natal-body"></div>
 </div>
 
 <script>
-const tg=window.Telegram?.WebApp;
-if(tg){tg.expand();tg.ready()}
-
-// Stars
-const sc=document.getElementById('stars');
-for(let i=0;i<80;i++){
-  const s=document.createElement('div');s.className='star';
-  const sz=Math.random()*2.5+.5;
-  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;--d:${Math.random()*3+2}s;--lo:${Math.random()*.25+.05}`;
-  sc.appendChild(s)
+// ── Stars ──────────────────────────────────────────────────────────────────
+const starsEl = document.getElementById('stars');
+for(let i=0;i<60;i++){
+  const s=document.createElement('div');
+  s.className='star';
+  const size=Math.random()*2+1;
+  s.style.cssText=`width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${2+Math.random()*4}s;--lo:${0.1+Math.random()*0.4}`;
+  starsEl.appendChild(s);
 }
 
-const SIGNS={
-  oven:{n:'Овен',e:'♈'},telec:{n:'Телец',e:'♉'},bliznecy:{n:'Близнецы',e:'♊'},
-  rak:{n:'Рак',e:'♋'},lev:{n:'Лев',e:'♌'},deva:{n:'Дева',e:'♍'},
-  vesy:{n:'Весы',e:'♎'},skorpion:{n:'Скорпион',e:'♏'},strelec:{n:'Стрелец',e:'♐'},
-  kozerog:{n:'Козерог',e:'♑'},vodoley:{n:'Водолей',e:'♒'},ryby:{n:'Рыбы',e:'♓'}
-};
+// ── Telegram WebApp ────────────────────────────────────────────────────────
+const tg = window.Telegram?.WebApp;
+if(tg){ tg.ready(); tg.expand(); }
 
-function getSign(d,m){
-  if((m==3&&d>=21)||(m==4&&d<=19))return'oven';
-  if((m==4&&d>=20)||(m==5&&d<=20))return'telec';
-  if((m==5&&d>=21)||(m==6&&d<=20))return'bliznecy';
-  if((m==6&&d>=21)||(m==7&&d<=22))return'rak';
-  if((m==7&&d>=23)||(m==8&&d<=22))return'lev';
-  if((m==8&&d>=23)||(m==9&&d<=22))return'deva';
-  if((m==9&&d>=23)||(m==10&&d<=22))return'vesy';
-  if((m==10&&d>=23)||(m==11&&d<=21))return'skorpion';
-  if((m==11&&d>=22)||(m==12&&d<=21))return'strelec';
-  if((m==12&&d>=22)||(m==1&&d<=19))return'kozerog';
-  if((m==1&&d>=20)||(m==2&&d<=18))return'vodoley';
-  return'ryby';
-}
+// ── Input formatting ───────────────────────────────────────────────────────
+const inpDate = document.getElementById('inp-date');
+const inpTime = document.getElementById('inp-time');
 
-function go(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));
-  document.getElementById('s-'+id).classList.remove('hidden');
-  window.scrollTo(0,0);
-}
-
-document.getElementById('inp').addEventListener('input',function(e){
-  let v=e.target.value.replace(/\D/g,'');
-  if(v.length>=2)v=v.slice(0,2)+'-'+v.slice(2);
-  if(v.length>=5)v=v.slice(0,5)+'-'+v.slice(5);
+inpDate.addEventListener('input', e => {
+  let v = e.target.value.replace(/\D/g,'');
+  if(v.length>2) v=v.slice(0,2)+'-'+v.slice(2);
+  if(v.length>5) v=v.slice(0,5)+'-'+v.slice(5);
   e.target.value=v.slice(0,10);
 });
+inpTime.addEventListener('input', e => {
+  let v = e.target.value.replace(/\D/g,'');
+  if(v.length>2) v=v.slice(0,2)+':'+v.slice(2);
+  e.target.value=v.slice(0,5);
+});
 
-function saveBirth(){
-  const v=document.getElementById('inp').value;
-  if(!/^\d{2}-\d{2}-\d{4}$/.test(v)){alert('Введите дату в формате ДД-ММ-ГГГГ');return}
-  const[d,m,y]=v.split('-').map(Number);
-  const dt=new Date(y,m-1,d);
-  if(isNaN(dt)||dt>new Date()||y<1900){alert('Укажите корректную дату');return}
-  localStorage.setItem('bd',v);
-  loadMenu(v);go('menu');
+// ── Pages ──────────────────────────────────────────────────────────────────
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-function loadMenu(bd){
-  const[d,m]=bd.split('-').map(Number);
-  const slug=getSign(d,m);const sg=SIGNS[slug];
-  document.getElementById('m-emoji').textContent=sg.e;
-  document.getElementById('m-name').textContent=sg.n;
-  document.getElementById('m-bd').textContent=bd;
-  localStorage.setItem('sign',slug);
+document.getElementById('btn-back').addEventListener('click',()=>showPage('page-input'));
+
+// ── Tabs ───────────────────────────────────────────────────────────────────
+const TABS = ['wheel','planets','aspects','interp'];
+document.querySelectorAll('.tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
+    TABS.forEach(t=>document.getElementById('tab-'+t).style.display='none');
+    document.getElementById('tab-'+btn.dataset.tab).style.display='block';
+  });
+});
+
+// ── Calculate ──────────────────────────────────────────────────────────────
+let natalData = null;
+
+document.getElementById('btn-calc').addEventListener('click', async () => {
+  const date = inpDate.value.trim();
+  const time = inpTime.value.trim() || '12:00';
+  if(!/^\d{2}-\d{2}-\d{4}$/.test(date)){
+    alert('Введите дату в формате ДД-ММ-ГГГГ');
+    return;
+  }
+  showPage('page-chart');
+  document.getElementById('loading').style.display='flex';
+  document.getElementById('chart-content').style.display='none';
+  document.getElementById('birth-info').textContent = date + ' ' + time;
+
+  try {
+    const resp = await fetch('/api/natal-data', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({birthdate:date, birthtime:time})
+    });
+    natalData = await resp.json();
+    if(natalData.error) throw new Error(natalData.error);
+    renderAll(natalData);
+    document.getElementById('loading').style.display='none';
+    document.getElementById('chart-content').style.display='block';
+  } catch(e) {
+    document.getElementById('loading').innerHTML =
+      `<div style="color:var(--red);text-align:center;padding:20px">`+
+      `<div style="font-size:32px;margin-bottom:12px">⚠️</div>`+
+      `<div>Ошибка расчёта</div><div style="font-size:12px;margin-top:8px;color:var(--dim)">${e.message}</div>`+
+      `<button class="btn btn-sec" onclick="showPage('page-input')" style="margin-top:20px">← Назад</button></div>`;
+  }
+});
+
+// ── Render All ─────────────────────────────────────────────────────────────
+function renderAll(d){
+  renderWheel(d);
+  renderPlanets(d);
+  renderAspects(d);
+  renderInterp(d);
+  // ASC/MC
+  document.getElementById('asc-emoji').textContent = d.asc.sign_emoji;
+  document.getElementById('asc-sign').textContent  = d.asc.sign_ru;
+  document.getElementById('asc-deg').textContent   = `${d.asc.deg}°${String(d.asc.min).padStart(2,'0')}'`;
+  document.getElementById('mc-emoji').textContent  = d.mc.sign_emoji;
+  document.getElementById('mc-sign').textContent   = d.mc.sign_ru;
+  document.getElementById('mc-deg').textContent    = `${d.mc.deg}°${String(d.mc.min).padStart(2,'0')}'`;
 }
 
-function reset(){localStorage.removeItem('bd');localStorage.removeItem('sign');document.getElementById('inp').value='';go('birth')}
+// ── SVG Wheel ──────────────────────────────────────────────────────────────
+const SIGN_COLORS = ['#e74c3c','#e67e22','#f1c40f','#2ecc71','#f1c40f','#95a5a6',
+                     '#3498db','#8e44ad','#e67e22','#7f8c8d','#2980b9','#1abc9c'];
+const SIGN_SYMS = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+const ASP_COLORS = {0:'#a78bfa',60:'#34d399',90:'#f87171',120:'#34d399',150:'#f87171',180:'#f87171'};
 
-const BASE=window.location.origin;
+function lonToAngle(lon){
+  // 0° Aries = top (270° in SVG standard)
+  return (lon - 90 + 360) % 360;
+}
+function polarToXY(cx,cy,r,angleDeg){
+  const rad = angleDeg * Math.PI / 180;
+  return {x: cx + r*Math.cos(rad), y: cy + r*Math.sin(rad)};
+}
 
-async function openHoro(type){
-  go('horo');
-  const sign=localStorage.getItem('sign');const sg=SIGNS[sign]||{};
-  const lbl=type==='day'?'сегодня':'на неделю';
-  document.getElementById('horo-title').textContent=(sg.e||'')+' Гороскоп '+lbl;
-  document.getElementById('horo-body').innerHTML='<div class="loading"><div class="spinner"></div><div class="load-txt">Читаем звёзды...</div></div>';
-  try{
-    const r=await fetch(`${BASE}/api/horoscope?sign=${sign}&type=${type}`);
-    const data=await r.json();
-    if(data.error)throw new Error(data.error);
-    document.getElementById('horo-body').innerHTML=`<div class="horo-body">${data.text.replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>')}</div>`;
-  }catch(e){
-    document.getElementById('horo-body').innerHTML='<div class="err">Не удалось загрузить гороскоп. Попробуйте позже.</div>';
+function renderWheel(d){
+  const svg = document.getElementById('natal-svg');
+  svg.innerHTML = '';
+  const W=400, cx=200, cy=200;
+  const R_OUTER=185, R_SIGN=165, R_SIGN_INNER=140, R_PLANET=118, R_INNER=90;
+
+  const ns='http://www.w3.org/2000/svg';
+  const mk=(tag,attrs,txt)=>{
+    const el=document.createElementNS(ns,tag);
+    for(const[k,v] of Object.entries(attrs)) el.setAttribute(k,v);
+    if(txt!=null) el.textContent=txt;
+    return el;
+  };
+
+  // Background circles
+  svg.appendChild(mk('circle',{cx,cy,r:R_OUTER,fill:'#0d0d1a',stroke:'rgba(255,255,255,0.15)','stroke-width':'1.5'}));
+  svg.appendChild(mk('circle',{cx,cy,r:R_SIGN_INNER,fill:'none',stroke:'rgba(255,255,255,0.1)','stroke-width':'1'}));
+  svg.appendChild(mk('circle',{cx,cy,r:R_INNER,fill:'#111128',stroke:'rgba(255,255,255,0.1)','stroke-width':'1'}));
+
+  // Zodiac sectors (12 x 30°)
+  const ASC_lon = d.asc.lon;
+  for(let i=0;i<12;i++){
+    const startLon = i*30;
+    const startAngle = lonToAngle(startLon);
+    const endAngle   = lonToAngle((i+1)*30);
+    // Sector arc
+    const p1o=polarToXY(cx,cy,R_OUTER,startAngle);
+    const p2o=polarToXY(cx,cy,R_OUTER,endAngle);
+    const p2i=polarToXY(cx,cy,R_SIGN_INNER,endAngle);
+    const p1i=polarToXY(cx,cy,R_SIGN_INNER,startAngle);
+    const path=`M${p1o.x},${p1o.y} A${R_OUTER},${R_OUTER} 0 0,1 ${p2o.x},${p2o.y} L${p2i.x},${p2i.y} A${R_SIGN_INNER},${R_SIGN_INNER} 0 0,0 ${p1i.x},${p1i.y} Z`;
+    svg.appendChild(mk('path',{d:path,fill:`${SIGN_COLORS[i]}22`,stroke:'rgba(255,255,255,0.15)','stroke-width':'0.5'}));
+    // Sign symbol
+    const midAngle = lonToAngle(startLon+15);
+    const sp = polarToXY(cx,cy,(R_OUTER+R_SIGN_INNER)/2,midAngle);
+    svg.appendChild(mk('text',{x:sp.x,y:sp.y,'font-size':'13','text-anchor':'middle','dominant-baseline':'middle',fill:SIGN_COLORS[i]+'cc'},SIGN_SYMS[i]));
+    // Spoke lines
+    svg.appendChild(mk('line',{x1:p1o.x,y1:p1o.y,x2:p1i.x,y2:p1i.y,stroke:'rgba(255,255,255,0.15)','stroke-width':'0.5'}));
+  }
+
+  // Aspect lines (inside inner circle)
+  const ASP_MAX_ORB = 8;
+  for(const asp of d.aspects){
+    if(![0,60,90,120,180].includes(asp.angle)) continue;
+    const p1 = d.planets.find(p=>p.name===asp.p1);
+    const p2 = d.planets.find(p=>p.name===asp.p2);
+    if(!p1||!p2) continue;
+    const a1=lonToAngle(p1.lon), a2=lonToAngle(p2.lon);
+    const pt1=polarToXY(cx,cy,R_INNER-4,a1);
+    const pt2=polarToXY(cx,cy,R_INNER-4,a2);
+    const color = ASP_COLORS[asp.angle] || '#888';
+    const opacity = asp.nature==='гармоничный' ? 0.35 : 0.25;
+    svg.appendChild(mk('line',{x1:pt1.x,y1:pt1.y,x2:pt2.x,y2:pt2.y,
+      stroke:color,'stroke-width':'0.8','stroke-opacity':opacity}));
+  }
+
+  // Planets
+  for(const p of d.planets){
+    const angle = lonToAngle(p.lon);
+    const pt = polarToXY(cx,cy,R_PLANET,angle);
+    // Tick from sign ring to planet ring
+    const tick1=polarToXY(cx,cy,R_SIGN_INNER,angle);
+    const tick2=polarToXY(cx,cy,R_SIGN_INNER-8,angle);
+    svg.appendChild(mk('line',{x1:tick1.x,y1:tick1.y,x2:tick2.x,y2:tick2.y,
+      stroke:'rgba(255,255,255,0.3)','stroke-width':'0.8'}));
+    // Planet dot
+    svg.appendChild(mk('circle',{cx:pt.x,cy:pt.y,r:'10',fill:'#1a1a2e',stroke:'rgba(167,139,250,0.6)','stroke-width':'1.2'}));
+    // Planet emoji/symbol
+    svg.appendChild(mk('text',{x:pt.x,y:pt.y,'font-size':'10','text-anchor':'middle','dominant-baseline':'middle',fill:'#e0e0ff'},p.emoji));
+  }
+
+  // ASC line
+  const ascAngle = lonToAngle(ASC_lon);
+  const ascPt1=polarToXY(cx,cy,R_OUTER,ascAngle);
+  const ascPt2=polarToXY(cx,cy,R_INNER,ascAngle);
+  svg.appendChild(mk('line',{x1:ascPt1.x,y1:ascPt1.y,x2:ascPt2.x,y2:ascPt2.y,
+    stroke:'#fbbf24','stroke-width':'1.5','stroke-dasharray':'4,2'}));
+  const ascLbl=polarToXY(cx,cy,R_INNER-16,ascAngle);
+  svg.appendChild(mk('text',{x:ascLbl.x,y:ascLbl.y,'font-size':'9','text-anchor':'middle',fill:'#fbbf24','font-weight':'bold'},'ASC'));
+
+  // MC line
+  const mcAngle = lonToAngle(d.mc.lon);
+  const mcPt1=polarToXY(cx,cy,R_OUTER,mcAngle);
+  const mcPt2=polarToXY(cx,cy,R_INNER,mcAngle);
+  svg.appendChild(mk('line',{x1:mcPt1.x,y1:mcPt1.y,x2:mcPt2.x,y2:mcPt2.y,
+    stroke:'#34d399','stroke-width':'1.5','stroke-dasharray':'4,2'}));
+  const mcLbl=polarToXY(cx,cy,R_INNER-16,mcAngle);
+  svg.appendChild(mk('text',{x:mcLbl.x,y:mcLbl.y,'font-size':'9','text-anchor':'middle',fill:'#34d399','font-weight':'bold'},'MC'));
+}
+
+// ── Planets Tab ────────────────────────────────────────────────────────────
+function renderPlanets(d){
+  const list = document.getElementById('planet-list');
+  list.innerHTML='';
+  for(const p of d.planets){
+    const div=document.createElement('div');
+    div.className='planet-row'+(p.retro?' retro':'');
+    div.innerHTML=`
+      <div class="p-emo">${p.emoji}</div>
+      <div class="p-name">${p.name}<div class="p-meaning">${p.meaning}</div></div>
+      <div class="p-pos">
+        <div class="p-sign">${p.sign_emoji} ${p.sign_ru}</div>
+        <div class="p-deg">${p.deg}°${String(p.min).padStart(2,'0')}'</div>
+        ${p.retro?'<div class="p-retro">℞ Ретроградный</div>':''}
+      </div>`;
+    list.appendChild(div);
   }
 }
 
-async function openNatal(){
-  go('natal');
-  const bd=localStorage.getItem('bd');
-  document.getElementById('natal-body').innerHTML='<div class="loading"><div class="spinner"></div><div class="load-txt">Вычисляем положение планет...</div></div>';
-  try{
-    const r=await fetch(`${BASE}/api/natal`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({birthdate:bd})});
-    const data=await r.json();
-    if(data.error)throw new Error(data.error);
-    const lines=data.report.split('\n').filter(l=>l.trim());
-    const html=lines.map((l,i)=>{
-      if(i===0)return`<div class="natal-head">${l}</div>`;
-      if(l.startsWith('-'))return`<div class="natal-row">${l.slice(1).trim()}</div>`;
-      return`<div class="natal-tip">${l}</div>`;
-    }).join('');
-    document.getElementById('natal-body').innerHTML=`<div class="natal-wrap">${html}</div>`;
-  }catch(e){
-    document.getElementById('natal-body').innerHTML='<div class="err">Не удалось построить натальную карту. Попробуйте позже.</div>';
+// ── Aspects Tab ────────────────────────────────────────────────────────────
+function renderAspects(d){
+  const harm = d.aspects.filter(a=>a.nature==='гармоничный');
+  const tens = d.aspects.filter(a=>a.nature==='напряжённый');
+  const neut = d.aspects.filter(a=>a.nature==='нейтральный');
+
+  function renderList(id, items){
+    const el=document.getElementById(id);
+    el.innerHTML='';
+    if(!items.length){ el.innerHTML='<div style="color:var(--dim);font-size:13px;padding:8px">Нет аспектов</div>'; return; }
+    for(const a of items){
+      const cls = a.nature==='гармоничный'?'harm':a.nature==='напряжённый'?'tens':'neut';
+      const div=document.createElement('div');
+      div.className=`asp-row ${cls}`;
+      div.innerHTML=`
+        <div class="asp-dot ${cls}"></div>
+        <div class="asp-planets">${a.p1e}${a.p2e}</div>
+        <div class="asp-name">${a.p1} — ${a.p2}<div class="asp-orb">${a.name} · орб ${a.orb}°</div></div>`;
+      el.appendChild(div);
+    }
+  }
+  renderList('asp-harm', [...harm,...neut]);
+  renderList('asp-tens', tens);
+}
+
+// ── Interpretation Tab ─────────────────────────────────────────────────────
+const INTERP = {
+  "Овен":      "активность, инициатива, желание быть первым",
+  "Телец":     "стабильность, чувственность, терпение",
+  "Близнецы":  "общение, адаптивность, любопытство",
+  "Рак":       "эмоциональность, забота, привязанность к дому",
+  "Лев":       "творчество, щедрость, стремление к признанию",
+  "Дева":      "аналитика, порядок, стремление к совершенству",
+  "Весы":      "дипломатия, эстетика, потребность в гармонии",
+  "Скорпион":  "интенсивность, трансформация, проницательность",
+  "Стрелец":   "оптимизм, философия, стремление к свободе",
+  "Козерог":   "амбиции, дисциплина, практичность",
+  "Водолей":   "независимость, оригинальность, гуманизм",
+  "Рыбы":      "интуиция, сострадание, растворение в мире",
+};
+const PLANET_KEY_INTERP = {
+  "Солнце":    "Ваша суть, жизненная сила и путь самовыражения.",
+  "Луна":      "Ваш эмоциональный мир, интуиция и внутренние потребности.",
+  "Меркурий":  "Ваш стиль мышления, речь и способ обработки информации.",
+  "Венера":    "Ваш подход к любви, красоте и тому, что вы цените.",
+  "Марс":      "Ваша энергия, воля и способ достижения целей.",
+  "Юпитер":   "Где вам сопутствует удача и где вы растёте.",
+  "Сатурн":    "Ваши уроки, ограничения и область дисциплины.",
+  "Уран":      "Где вы стремитесь к переменам и оригинальности.",
+  "Нептун":    "Где живут ваши мечты, идеалы и растворение границ.",
+  "Плутон":    "Где происходит глубокая трансформация и обновление.",
+  "Хирон":     "Ваша глубокая рана, которая становится источником мудрости.",
+  "Сев. Узел": "Направление кармического развития и духовного роста.",
+};
+
+function renderInterp(d){
+  const list=document.getElementById('interp-list');
+  list.innerHTML='';
+  // ASC first
+  const ascDiv=document.createElement('div');
+  ascDiv.className='interp-block';
+  ascDiv.innerHTML=`
+    <div class="interp-header">
+      <div class="interp-emo">↑</div>
+      <div><div class="interp-title">Асцендент</div>
+      <div class="interp-sign">${d.asc.sign_emoji} ${d.asc.sign_ru}</div></div>
+    </div>
+    <div class="interp-text">Ваш образ в глазах других, первое впечатление и социальная маска. Асцендент в ${d.asc.sign_ru}: ${INTERP[d.asc.sign_ru]||'индивидуальные черты'}.</div>`;
+  list.appendChild(ascDiv);
+  // Planets
+  for(const p of d.planets){
+    const retStr = p.retro ? ` <span style="color:var(--red)">℞</span>` : '';
+    const keyInterp = PLANET_KEY_INTERP[p.name] || '';
+    const signInterp = INTERP[p.sign_ru] || 'индивидуальные особенности';
+    const div=document.createElement('div');
+    div.className='interp-block';
+    div.innerHTML=`
+      <div class="interp-header">
+        <div class="interp-emo">${p.emoji}</div>
+        <div><div class="interp-title">${p.name}${retStr}</div>
+        <div class="interp-sign">${p.sign_emoji} ${p.sign_ru} ${p.deg}°${String(p.min).padStart(2,'0')}'</div></div>
+      </div>
+      <div class="interp-text">${keyInterp} В знаке ${p.sign_ru} это проявляется через ${signInterp}.</div>`;
+    list.appendChild(div);
   }
 }
 
-const saved=localStorage.getItem('bd');
-if(saved){loadMenu(saved);go('menu')}else{go('birth')}
+// ── Restore saved data ─────────────────────────────────────────────────────
+try {
+  const saved = JSON.parse(localStorage.getItem('lastBirth')||'null');
+  if(saved){ inpDate.value=saved.date; inpTime.value=saved.time||'12:00'; }
+} catch(e){}
+
+inpDate.addEventListener('change',()=>{
+  try{ localStorage.setItem('lastBirth',JSON.stringify({date:inpDate.value,time:inpTime.value})); }catch(e){}
+});
 </script>
 </body>
 </html>

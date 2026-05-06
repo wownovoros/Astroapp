@@ -1,14 +1,24 @@
 import asyncio
 import logging
+import socket
 import sys
 
 # Fix for aiohttp on Windows Python 3.8+ (WinError 121)
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
+# Force IPv4: patch aiohttp.ClientSession before aiogram imports it
+import aiohttp
+_OrigClientSession = aiohttp.ClientSession
+class _IPv4ClientSession(_OrigClientSession):
+    def __init__(self, *args, **kwargs):
+        if "connector" not in kwargs:
+            kwargs["connector"] = aiohttp.TCPConnector(family=socket.AF_INET)
+        super().__init__(*args, **kwargs)
+aiohttp.ClientSession = _IPv4ClientSession
+
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
-
 from config import BOT_TOKEN, MINI_APP_URL
 
 logging.basicConfig(level=logging.INFO)

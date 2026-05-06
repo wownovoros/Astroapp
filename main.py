@@ -3,18 +3,25 @@ import logging
 import os
 import sys
 
+# ── Patch: pyswisseph >= 2.8 returns (tuple, retflag); flatlib expects tuple ─
+import swisseph as _sw
+_orig_calc_ut = _sw.calc_ut
+def _compat_calc_ut(jd, planet, *a, **kw):
+    r = _orig_calc_ut(jd, planet, *a, **kw)
+    return r[0] if isinstance(r[0], (tuple, list)) else r
+_sw.calc_ut = _compat_calc_ut
+import flatlib.ephem.swe as _fswe
+_fswe.swisseph.calc_ut = _compat_calc_ut
+# ─────────────────────────────────────────────────────────────────────────────
+
 import requests
 from flask import Flask, jsonify, request, send_from_directory
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# ── Config ────────────────────────────────────────────────────────────────────
-BOT_TOKEN   = os.getenv("BOT_TOKEN", "")
+BOT_TOKEN    = os.getenv("BOT_TOKEN", "")
 WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET", "astrosecret123")
-DEFAULT_TZ  = os.getenv("DEFAULT_TZ_OFFSET", "+03:00")
-DEFAULT_LAT = os.getenv("DEFAULT_LAT", "55.7558")
-DEFAULT_LON = os.getenv("DEFAULT_LON", "37.6176")
 TELEGRAM_API = f"https://api.telegram.org/bot{BOT_TOKEN}"
 
 logging.basicConfig(level=logging.INFO)
@@ -22,10 +29,23 @@ log = logging.getLogger(__name__)
 
 app = Flask(__name__, static_folder="public")
 
-# ── Mini App (frontend) ───────────────────────────────────────────────────────
+# ── Frontend ──────────────────────────────────────────────────────────────────
 @app.route("/")
 def index():
     return send_from_directory("public", "index.html")
+
+# ── Health ────────────────────────────────────────────────────────────────────
+@app.route("/health")
+def health():
+    return "ok"
+
+# ── CORS helper ───────────────────────────────────────────────────────────────
+def _cors_response():
+    r = jsonify({})
+    r.headers["Access-Control-Allow-Origin"] = "*"
+    r.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+    r.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    return r
 
 # ── API: horoscope ────────────────────────────────────────────────────────────
 @app.route("/api/horoscope")
@@ -33,15 +53,34 @@ def horoscope():
     sign  = request.args.get("sign", "")
     htype = request.args.get("type", "day")
     try:
-        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         from services.parser import get_daily_horoscope, get_weekly_horoscope
         text = get_weekly_horoscope(sign) if htype == "week" else get_daily_horoscope(sign)
     except Exception as e:
         log.error("horoscope error: %s", e)
         text = "Гороскоп временно недоступен. Попробуйте позже."
-    return jsonify({"text": text})
+    resp = jsonify({"text": text})
+    resp.headers["Access-Control-Allow-Origin"] = "*"
+    return resp
 
-# ── API: natal chart ──────────────────────────────────────────────────────────
+# ── API: natal chart (полный JSON) ────────────────────────────────────────────
+@app.route("/api/natal-data", methods=["POST", "OPTIONS"])
+def natal_data():
+    if request.method == "OPTIONS":
+        return _cors_response()
+    try:
+        body = request.get_json(force=True) or {}
+        birthdate = body.get("birthdate", "")
+        birthtime = body.get("birthtime", "12:00")
+        from services.natal import build_natal_data
+        data = build_natal_data(birthdate, birthtime)
+        resp = jsonify(data)
+    except Exception as e:
+        log.error("natal-data error: %s", e)
+        resp = jsonify({"error": str(e)})
+    resp.headers["Access-Control-Allow-Origin"] = "*"
+    return resp
+
+# ── API: natal chart (текстовый, обратная совместимость) ──────────────────────
 @app.route("/api/natal", methods=["POST", "OPTIONS"])
 def natal():
     if request.method == "OPTIONS":
@@ -49,7 +88,6 @@ def natal():
     try:
         body = request.get_json(force=True) or {}
         birthdate = body.get("birthdate", "")
-        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         from services.natal import build_natal_report
         report = build_natal_report(birthdate)
         resp = jsonify({"report": report})
@@ -59,13 +97,6 @@ def natal():
     resp.headers["Access-Control-Allow-Origin"] = "*"
     return resp
 
-def _cors_response():
-    r = jsonify({})
-    r.headers["Access-Control-Allow-Origin"] = "*"
-    r.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
-    r.headers["Access-Control-Allow-Headers"] = "Content-Type"
-    return r
-
 # ── Telegram webhook ──────────────────────────────────────────────────────────
 @app.route(f"/webhook/{WEBHOOK_SECRET}", methods=["POST"])
 def webhook():
@@ -73,7 +104,7 @@ def webhook():
     try:
         _handle_update(data)
     except Exception as e:
-        log.error("webhook handler error: %s", e)
+        log.error("webhook error: %s", e)
     return "ok"
 
 def _handle_update(data):
@@ -109,7 +140,7 @@ def _tg_post(method, payload):
     except Exception as e:
         log.error("TG request failed: %s", e)
 
-# ── Setup webhook (вызывается один раз после деплоя) ─────────────────────────
+# ── Setup webhook ─────────────────────────────────────────────────────────────
 @app.route("/setup")
 def setup():
     host = request.host_url.rstrip("/")
@@ -119,14 +150,7 @@ def setup():
         params={"url": webhook_url, "drop_pending_updates": True},
         timeout=10
     )
-    result = r.json()
-    log.info("setWebhook result: %s", result)
-    return jsonify(result)
-
-# ── Health check ──────────────────────────────────────────────────────────────
-@app.route("/health")
-def health():
-    return "ok"
+    return jsonify(r.json())
 
 # ── Run ───────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
